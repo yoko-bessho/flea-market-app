@@ -58,7 +58,7 @@
 
 ### ER図
 
-![ER図](er.drawio.svg)
+![ER図](er.svg)
 
 
 ### URL
