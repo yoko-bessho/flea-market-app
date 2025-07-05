@@ -1,4 +1,4 @@
-# mogitate（商品管理画面）
+# flea-market-app(フリマアプリ)
 
 ## 環境構築
 
@@ -58,7 +58,7 @@
 
 ### ER図
 
-![ER図](index.svg)
+![ER図](er.drawio.svg)
 
 
 ### URL
