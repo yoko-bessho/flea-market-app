@@ -64,7 +64,7 @@
 |                 | email                | varchar(255)               |             | ○                         | ○        |                |
 |                 | password             | varchar(255)               |             | ○                         | ○        |                |
 |                 | profile_image        | varchar(255)               |             |                           |          |                |
-|                 | postal_code          | varchar(8)                 |             |                           | ○        |                |
+|                 | postal_code          | char(7)                 |             |                           | ○        |                |
 |                 | address              | varchar(255)               |             |                           | ○        |                |
 |                 | building             | varchar(255)               |             |                           |          |                |
 |                 | created_at           | timestamp                  |             |                           |          |                |
@@ -118,7 +118,7 @@
 |                 | id                   | unsigned bigint            | ○           |                           | ○        |                |
 |                 | item_id              | unsigned bigint            |             |                           | ○        | items(id)      |
 |                 | buyer_id             | unsigned bigint            |             |                           | ○        | users(id)      |
-|                 | shipping_postal_code | varchar(8)                 |             |                           | ○        |                |
+|                 | shipping_postal_code | char(7)                 |             |                           | ○        |                |
 |                 | shipping_address     | varchar(255)               |             |                           | ○        |                |
 |                 | shipping_building    | varchar(255)               |             |                           |          |                |
 |                 | payment_method       | varchar(20)+enum(laravel側) |             |                           | ○        |                |
