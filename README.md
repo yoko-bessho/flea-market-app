@@ -58,12 +58,6 @@
 ### テーブル設計
 | テーブル名           | カラム名                 | 型                          | PRIMARY KEY | UNIQUE KEY                | NOT NULL | FOREIGN KEY    |
 |-----------------|----------------------|----------------------------|-------------|---------------------------|----------|----------------|
-| 例）testsテーブル     |                      |                            |             |                           |          |                |
-|                 | id                   | unsigned bigint            | ○           |                           | ○        |                |
-|                 | user_id              | unsigned bigint            |             |                           | ○        | users(id)      |
-|                 | score                | integer                    |             |                           | ○        |                |
-|                 | created_at           | timestamp                  |             |                           |          |                |
-|                 | updated_at           | timestamp                  |             |                           |          |                |
 | users           |                      |                            |             |                           |          |                |
 |                 | id                   | unsigned bigint            | ○           |                           | ○        |                |
 |                 | name                 | varchar(255)               |             | ○                         | ○        |                |
@@ -98,26 +92,10 @@
 |                 | created_at           | timestamp                  |             |                           |          |                |
 |                 |                      |                            |             |                           |          |                |
 |                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
 | item_categories |                      |                            |             |                           |          |                |
 |                 | id                   | unsigned bigint            | ○           |                           | ○        |                |
 |                 | item_id              | unsigned bigint            |             |                           | ○        | items(id)      |
 |                 | category_id          | unsigned bigint            |             |                           | ○        | categories(id) |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
 |                 |                      |                            |             |                           |          |                |
 |                 |                      |                            |             |                           |          |                |
 | likes           |                      |                            |             |                           |          |                |
@@ -127,13 +105,6 @@
 |                 | created_at           | timestamp                  |             |                           |          |                |
 |                 |                      |                            |             |                           |          |                |
 |                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
 | comments        |                      |                            |             |                           |          |                |
 |                 | id                   | unsigned bigint            | ○           |                           | ○        |                |
 |                 | user_id              | unsigned bigint            |             |                           | ○        | users(id)      |
@@ -141,11 +112,6 @@
 |                 | text                 | text                       |             |                           | ○        |                |
 |                 | created_at           | timestamp                  |             |                           |          |                |
 |                 | deleted_at           | timestamp                  |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
 |                 |                      |                            |             |                           |          |                |
 |                 |                      |                            |             |                           |          |                |
 | purchases       |                      |                            |             |                           |          |                |
@@ -161,111 +127,6 @@
 |                 | order_status         | varchar(20)+enum(laravel側) |             |                           | ○        |                |
 |                 | created_at           | timestamp                  |             |                           |          |                |
 |                 | updated_at           | timestamp                  |						
-| テーブル名           | カラム名                 | 型                          | PRIMARY KEY | UNIQUE KEY                | NOT NULL | FOREIGN KEY    |
-|-----------------|----------------------|----------------------------|-------------|---------------------------|----------|----------------|
-| 例）testsテーブル     |                      |                            |             |                           |          |                |
-|                 | id                   | unsigned bigint            | ○           |                           | ○        |                |
-|                 | user_id              | unsigned bigint            |             |                           | ○        | users(id)      |
-|                 | score                | integer                    |             |                           | ○        |                |
-|                 | created_at           | timestamp                  |             |                           |          |                |
-|                 | updated_at           | timestamp                  |             |                           |          |                |
-| users           |                      |                            |             |                           |          |                |
-|                 | id                   | unsigned bigint            | ○           |                           | ○        |                |
-|                 | name                 | varchar(255)               |             | ○                         | ○        |                |
-|                 | email                | varchar(255)               |             | ○                         | ○        |                |
-|                 | password             | varchar(255)               |             | ○                         | ○        |                |
-|                 | profile_image        | varchar(255)               |             |                           |          |                |
-|                 | postal_code          | varchar(8)                 |             |                           | ○        |                |
-|                 | address              | varchar(255)               |             |                           | ○        |                |
-|                 | building             | varchar(255)               |             |                           |          |                |
-|                 | created_at           | timestamp                  |             |                           |          |                |
-|                 | updated_at           | timestamp                  |             |                           |          |                |
-|                 | deleted_at           | timestamp                  |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-| items           |                      |                            |             |                           |          |                |
-|                 | id                   | unsigned bigint            | ○           |                           | ○        |                |
-|                 | user_id              | unsigned bigint            |             |                           | ○        | users(id)      |
-|                 | title                | varchar(255)               |             |                           | ○        |                |
-|                 | description          | text                       |             |                           | ○        |                |
-|                 | price                | unsignedsmallInteger       |             |                           | ○        |                |
-|                 | category_id          | unsigned bigint            |             |                           | ○        | categories(id) |
-|                 | is_sold              | varchar(20)                |             |                           | ○        |                |
-|                 | image_path           | varchar(255)               |             |                           | ○        |                |
-|                 | created_at           | timestamp                  |             |                           |          |                |
-|                 | updated_at           | timestamp                  |             |                           |          |                |
-|                 | deleted_at           | timestamp                  |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-| categories      |                      |                            |             |                           |          |                |
-|                 | id                   | unsigned bigint            | ○           |                           | ○        |                |
-|                 | name                 | varchar(255)               |             | ○                         | ○        |                |
-|                 | created_at           | timestamp                  |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-| item_categories |                      |                            |             |                           |          |                |
-|                 | id                   | unsigned bigint            | ○           |                           | ○        |                |
-|                 | item_id              | unsigned bigint            |             |                           | ○        | items(id)      |
-|                 | category_id          | unsigned bigint            |             |                           | ○        | categories(id) |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-| likes           |                      |                            |             |                           |          |                |
-|                 | id                   | unsigned bigint            | ○           |                           | ○        |                |
-|                 | user_id              | unsigned bigint            |             | UNIQUE (user_id, item_id) | ○        | users(id)      |
-|                 | item_id              | unsigned bigint            |             | UNIQUE (user_id, item_id) | ○        | items(id)      |
-|                 | created_at           | timestamp                  |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-| comments        |                      |                            |             |                           |          |                |
-|                 | id                   | unsigned bigint            | ○           |                           | ○        |                |
-|                 | user_id              | unsigned bigint            |             |                           | ○        | users(id)      |
-|                 | item_id              | unsigned bigint            |             |                           | ○        | items(id)      |
-|                 | text                 | text                       |             |                           | ○        |                |
-|                 | created_at           | timestamp                  |             |                           |          |                |
-|                 | deleted_at           | timestamp                  |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-|                 |                      |                            |             |                           |          |                |
-| purchases       |                      |                            |             |                           |          |                |
-|                 | id                   | unsigned bigint            | ○           |                           | ○        |                |
-|                 | item_id              | unsigned bigint            |             |                           | ○        | items(id)      |
-|                 | buyer_id             | unsigned bigint            |             |                           | ○        | users(id)      |
-|                 | shipping_postal_code | varchar(8)                 |             |                           | ○        |                |
-|                 | shipping_address     | varchar(255)               |             |                           | ○        |                |
-|                 | shipping_building    | varchar(255)               |             |                           |          |                |
-|                 | payment_method       | varchar(20)+enum(laravel側) |             |                           | ○        |                |
-|                 | payment_status       | varchar(20)+enum(laravel側) |             |                           | ○        |                |
-|                 | paid_at              | timestamp                  |             |                           |          |                |
-|                 | order_status         | varchar(20)+enum(laravel側) |             |                           | ○        |                |
-|                 | created_at           | timestamp                  |             |                           |          |                |
-|                 | updated_at           | timestamp                  |
 
 ### ER図
 
