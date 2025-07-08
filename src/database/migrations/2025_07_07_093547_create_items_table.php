@@ -19,7 +19,6 @@ class CreateItemsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->unsignedSmallInteger('price');
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->string('is_sold', 20);
             $table->string('image_path');
             $table->timestamps();

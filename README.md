@@ -3,7 +3,7 @@
 ## 環境構築
 
 ### Dockerビルド
-1.  `git clone `
+1.  `git clone git@github.com:yoko-bessho/flea-market-app.git`
 2.  DockerDesktopアプリ立ち上げる. 
 3.  `docker compose up -d --build`
 
@@ -41,14 +41,13 @@
    `php artisan key:generate`
 
 6. マイグレーションの実行. 
-   `php artisan (ファイル名入れる )`
+   `php artisan migrate`
 
 7. シーディングの実行. 
    `php artisan db:seed`
 
 8. シンボリックリンク作成. 
    `php artisan storage:link`
-
 
 ### 使用技術（実行環境）
 　・ PHP 7.4.9. 
@@ -78,7 +77,6 @@
 |                 | title                | varchar(255)               |             |                           | ○        |                |
 |                 | description          | text                       |             |                           | ○        |                |
 |                 | price                | unsignedsmallInteger       |             |                           | ○        |                |
-|                 | category_id          | unsigned bigint            |             |                           | ○        | categories(id) |
 |                 | is_sold              | varchar(20)                |             |                           | ○        |                |
 |                 | image_path           | varchar(255)               |             |                           | ○        |                |
 |                 | created_at           | timestamp                  |             |                           |          |                |
