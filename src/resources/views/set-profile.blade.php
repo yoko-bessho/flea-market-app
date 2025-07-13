@@ -22,14 +22,14 @@
                 alt="プロフィール画像"
                 class="profile-image">
             @else
-                <div class="profile-placeholder">No image
+                <div class="profile-placeholder">
                 </div>
             @endif
-                <label class="uproad-label" for="profile_image">画像を選択する</label>
+                <label class="upload-label" for="profile_image">画像を選択する</label>
                 <input type="file" name="profile_image" id="profile_image"
                 accept="image/*"
                 class="upload-input">
-                
+
                 <div class="form__error">
                 @error('profile_image')
                     <span class="error-message">{{ $message }}</span>
@@ -97,7 +97,7 @@
         </div>
 
         <div class="form__button">
-            <button class="form__button-submit" type="submit">更新する</button>
+            <button class="update form__button-submit" type="submit">更新する</button>
         </div>
     </form>
 
