@@ -18,12 +18,11 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', [AuthController::class, 'index']);
 
-Route::get('/login', [UserController::class, 'login'])->name('login');
 
-Route::post('/login', [UserController::class, 'login'])->name('login');
 
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::get('/setProfile', [UserController::class, 'setProfile'])->name('setProfile')->middleware('auth');
 
 Route::post('/setProfile', [UserController::class, 'setProfile'])->name('setProfile');
+

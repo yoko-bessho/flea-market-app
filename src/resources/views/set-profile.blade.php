@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('css')
@@ -16,13 +15,39 @@
         @csrf
 
         <div class="form__group">
+            <div class="profile-container">
+            @if(Auth::user()->profile_image)
+                <img
+                src="{{ asset('storage/' . Auth::user()->profile_image) }}"
+                alt="プロフィール画像"
+                class="profile-image">
+            @else
+                <div class="profile-placeholder">No image
+                </div>
+            @endif
+                <label class="uproad-label" for="profile_image">画像を選択する</label>
+                <input type="file" name="profile_image" id="profile_image"
+                accept="image/*"
+                class="upload-input">
+                
+                <div class="form__error">
+                @error('profile_image')
+                    <span class="error-message">{{ $message }}</span>
+                @enderror
+                </div>
+            </div>
+        </div>
+
+        <div class="form__group">
             <div class="form__group-title">ユーザー名</div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="text" name="username" value="oldname入れる">
+                    <input type="text" name="name" value="{{  old('name')}}">
                 </div>
                 <div class="form__error">
-                  あっとエラー入れる
+                @error('name')
+                    <span class="error-message">{{ $message }}</span>
+                @enderror
                 </div>
             </div>
         </div>
@@ -31,10 +56,12 @@
             <div class="form__group-title">郵便番号</div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="text" name="postal" value="oldname入れる">
+                    <input type="text" name="postal_codo" value="{{ old('postal_code') }}">
                 </div>
                 <div class="form__error">
-                  あっとエラー入れる
+                @error('postal_code')
+                    <span class="error-message">{{ $message }}</span>
+                @enderror
                 </div>
             </div>
         </div>
@@ -44,10 +71,12 @@
             </div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="text" name="address" value="oldname入れる">
+                    <input type="text" name="address" value="{{ old('address') }}">
                 </div>
                 <div class="form__error">
-                  あっとエラー入れる
+                @error('address')
+                    <span class="error-message">{{ $message }}</span>
+                @enderror
                 </div>
             </div>
         </div>
@@ -57,10 +86,12 @@
             </div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="text" name="building" value="oldname入れる">
+                    <input type="text" name="building" value="{{ old('building') }}">
                 </div>
                 <div class="form__error">
-                  あっとエラー入れる
+                @error('building')
+                    <span class="error-message">{{ $message }}</span>
+                @enderror
                 </div>
             </div>
         </div>
