@@ -18,8 +18,10 @@ class CreateItemsTable extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->text('description');
-            $table->unsignedSmallInteger('price');
-            $table->string('is_sold', 20);
+            $table->string('brand')->nullable();
+            $table->string('condition');
+            $table->unsignedInteger('price');
+            $table->boolean('is_sold')->default(false);
             $table->string('image_path');
             $table->timestamps();
             $table->softDeletes();
