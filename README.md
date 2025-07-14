@@ -76,8 +76,11 @@
 |                 | user_id              | unsigned bigint            |             |                           | ○        | users(id)      |
 |                 | title                | varchar(255)               |             |                           | ○        |                |
 |                 | description          | text                       |             |                           | ○        |                |
+|                 | brand                | text                       |             |                           | ○        |                |
+|                 | condition            | text                       |             |                           | ○        |                |
+
 |                 | price                | unsignedsmallInteger       |             |                           | ○        |                |
-|                 | is_sold              | varchar(20)                |             |                           | ○        |                |
+|                 | is_sold              | boolean                |             |                           | ○        |                |
 |                 | image_path           | varchar(255)               |             |                           | ○        |                |
 |                 | created_at           | timestamp                  |             |                           |          |                |
 |                 | updated_at           | timestamp                  |             |                           |          |                |
