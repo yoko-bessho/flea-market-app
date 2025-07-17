@@ -22,7 +22,7 @@ Route::get('/', [AuthController::class, 'index']);
 
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
-Route::get('/setProfile', [UserController::class, 'setProfile'])->name('setProfile')->middleware('auth');
+Route::get('/setProfile', [UserController::class, 'setProfile'])->name('setProfile')->middleware(['auth', 'verified']);
 
-Route::post('/setProfile', [UserController::class, 'setProfile'])->name('setProfile');
+Route::post('/setProfile', [UserController::class, 'setProfile'])->name('setProfile')->middleware(['auth', 'verified']);
 

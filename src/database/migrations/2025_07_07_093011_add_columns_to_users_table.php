@@ -15,8 +15,8 @@ class AddColumnsToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('profile_image')->nullable();
-            $table->char('postal_code', 7);
-            $table->string('address');
+            $table->char('postal_code', 7)->nullable();
+            $table->string('address')->nullable();
             $table->string('building')->nullable();
             $table->softDeletes();
         });

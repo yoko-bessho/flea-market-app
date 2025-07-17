@@ -53,6 +53,8 @@
 　・ PHP 7.4.9. 
 　・ Laravel Framework 8.83.8. 
 　・ mysql  Ver 15.1.
+　・ 認証：mailtrap
+
 
 ### テーブル設計
 | No. | テーブル名       | カラム名          | 型               | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |

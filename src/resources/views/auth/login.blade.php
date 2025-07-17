@@ -47,7 +47,7 @@
     </form>
 
     <div class="register__link">
-      <a class="register__button-submit" href="/login">会員登録はこちら</a>
+      <a class="register__button-submit" href="/register">会員登録はこちら</a>
     </div>
 
 </div>
