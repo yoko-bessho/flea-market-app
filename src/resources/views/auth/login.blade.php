@@ -7,7 +7,7 @@
 @section('title', 'ログイン画面')
 
 @section('content')
-<div class="register-form__content">
+<div class="login-form__content">
     <div class="login-form__heading">
       <h2>ログイン</h2>
     </div>

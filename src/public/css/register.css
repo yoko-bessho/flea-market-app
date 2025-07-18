@@ -9,8 +9,41 @@
 }
 
 
+/* verifi-email.blade.phpのcss */
+.authentication-guidance {
+  margin: 100px auto;
+  padding: 10px;
+  text-align: center;
+}
 
-/* 以下set-profile.blade.phpのcss */
+.authentication {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.confirm-retry button {
+  margin-top: 20px;
+  border: none;
+  background-color: #fff;
+  color: rgb(41, 41, 148);
+}
+
+.authentication-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #000;
+  background-color: #eee;
+  border: solid 1px #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.confirm-retry {
+  margin-top: 50px;
+  border: none;
+}
+
+/* set-profile.blade.phpのcss */
 .profile-container {
   display: flex;
   align-items: center;
