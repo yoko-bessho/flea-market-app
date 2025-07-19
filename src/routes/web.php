@@ -24,5 +24,5 @@ Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::get('/setProfile', [UserController::class, 'setProfile'])->name('setProfile')->middleware(['auth', 'verified']);
 
-Route::post('/setProfile', [UserController::class, 'setProfile'])->name('setProfile')->middleware(['auth', 'verified']);
+Route::post('/mypage/profile', [UserController::class, 'update'])->name('update')->middleware(['auth', 'verified']);
 

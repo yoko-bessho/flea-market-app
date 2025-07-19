@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
@@ -13,14 +16,15 @@ class UserController extends Controller
      */
     
 
-    public function confirm()
-    {
-        return view('auth.confirm');
-    }
+    // public function confirm()
+    // {
+    //     return view('auth.confirm');
+    // }
 
-    public function setProfile()
+    public function setProfile(Request $request)
     {
-        return view('set-profile');
+        $user = Auth::user();
+        return view('set-profile', compact('user'));
     }
 
 
@@ -40,9 +44,8 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
     }
 
     /**
@@ -64,7 +67,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        
+
     }
 
     /**
@@ -74,9 +77,26 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        // dd($request->all());
+        $user = Auth::user();
+        $userData = $request->only(['name', 'postal_code', 'address', 'building']);
+
+        $userData['postal_code'] = preg_replace('/[^\d]/u', '', mb_convert_kana($userData['postal_code'], 'n'));
+
+        if ($request->hasFile('profile_image')) {
+            if ($user->profile_image) {
+                \Storage::disk('public')->delete($user->profile_image);
+            }
+            $userData['profile_image'] = $request->file('profile_image')->store('profile_images', 'public');
+        } else {
+            $userData['profile_image'] = $user->profile_image;
+        }
+
+        $user->update($userData);
+
+        return redirect('/');
     }
 
     /**
@@ -87,6 +107,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }
