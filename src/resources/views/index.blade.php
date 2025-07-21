@@ -10,15 +10,16 @@
 @section('header')
 <nav>
   <ul class="header-nav">
-    <li class="header-nav__item">
-        <a class="header-nav__link" href="/login">ログイン</a>
-    </li>
     @if (Auth::check())
     <li class="header-nav__item">
       <form action="/logout" method="post">
         @csrf
         <button class="header-nav__button" type="submit">ログアウト</button>
       </form>
+    </li>
+    @else
+    <li class="header-nav__item">
+      <a class="header-nav__link" href="/login">ログイン</a
     </li>
     @endif
     <li class="header-nav__item">

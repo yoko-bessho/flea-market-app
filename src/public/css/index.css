@@ -1,0 +1,24 @@
+.header-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  margin: 0 auto;
+}
+.header-nav__item {
+  margin: 0 10px;
+  text-decoration: none;
+}
+.header-nav__link {
+  color: #fff;
+  font-size: 14px;
+  text-decoration: none;
+}
+.header-nav__sell-link {
+  color: #000;
+  background-color: #fff;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
