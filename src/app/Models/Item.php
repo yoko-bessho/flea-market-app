@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\ItemCondition;
 
 class Item extends Model
 {
@@ -19,6 +20,8 @@ class Item extends Model
         'is_sold',
         'image_path',
     ];
+
+
 
     public function user()
     {
@@ -44,4 +47,6 @@ class Item extends Model
     {
         return $this->hasOne(Purchase::class);
     }
+
+
 }
