@@ -5,7 +5,7 @@
 .header__inner {
   margin: 0 auto;
   padding: 5px;
-  max-width: 1400px;
+  max-width: 1540px;
 }
 
 .header__logo {
@@ -19,30 +19,15 @@
 .header-utilities {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-.search-form {
-  width: 40%;
-  align-items: center;
-}
-.search-form__item {
-  width: 100%;
-  display: flex;
-  align-items: center;
-}
-.search-form__item-input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  font-size: 16px;
-}
 
 .register-form__content,
 .login-form__content {
   margin: 0 auto;
   padding: 15px;;
-  max-width: 1400px;
+  max-width: 1540px;
 }
 
 .register-form__heading,

@@ -8,13 +8,18 @@
 
 
 @section('header')
+<form action="" class="search-form" method="get">
+    <span class="search-form__item">
+        <input class="search-form__item-input" type="text" value="何をお探しですか？"/>
+    </span>
+</form>
 <nav>
   <ul class="header-nav">
     @if (Auth::check())
     <li class="header-nav__item">
       <form action="/logout" method="post">
         @csrf
-        <button class="header-nav__button" type="submit">ログアウト</button>
+        <button class="header-nav__logout-button" type="submit">ログアウト</button>
       </form>
     </li>
     @else

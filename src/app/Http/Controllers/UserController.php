@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Requests\ProfileRequest;
+use App\Models\User;
+use App\Models\Item;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class UserController extends Controller
 {
@@ -54,10 +56,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function mypage(Request $request)
     {
-        //
+        $page = $request->query('page', 'sell');
+
+        $user = User::with(['sellItems', 'buyItems'])->find(Auth::id());
+        $sellItems = $user->sellItems ?? collect();
+        $buyItems = $user->buyItems ?? collect();
+        
+        return view('mypage', compact('user', 'page', 'sellItems', 'buyItems'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -77,13 +86,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(ProfileRequest $request)
     {
-        // dd($request->all());
+
         $user = Auth::user();
         $userData = $request->only(['name', 'postal_code', 'address', 'building']);
 
-        $userData['postal_code'] = preg_replace('/[^\d]/u', '', mb_convert_kana($userData['postal_code'], 'n'));
+        $userData['postal_code'] = mb_convert_kana($userData['postal_code'], 'a');
 
         if ($request->hasFile('profile_image')) {
             if ($user->profile_image) {

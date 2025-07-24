@@ -15,11 +15,6 @@
         <div class="header__inner">
             <div class="header-utilities">
             <span class="header__logo">COACHTECH</span>
-            <form action="" class="search-form" method="get">
-                <span class="search-form__item">
-                    <input class="search-form__item-input" type="text" value="何をお探しですか？"/>
-                </span>
-            </form>
             @yield('header')
             </div>
         </div>

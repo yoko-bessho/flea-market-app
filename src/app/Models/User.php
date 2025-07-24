@@ -18,7 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
 
-protected $fillable = [
+    protected $fillable = [
         'name',
         'email',
         'password',
@@ -39,6 +39,8 @@ protected $fillable = [
         'remember_token',
         'id',
     ];
+
+
     use HasFactory;
 
     /**
@@ -50,9 +52,9 @@ protected $fillable = [
         'email_verified_at' => 'datetime',
     ];
 
-    public function items()
+    public function sellItems()
     {
-        return $this->hasMany(Item::class);
+        return $this->hasMany(Item::class, 'user_id');
     }
 
     public function likes()
@@ -65,7 +67,7 @@ protected $fillable = [
         return $this->hasMany(Comment::class);
     }
 
-    public function purchases()
+    public function buyItems()
     {
         return $this->hasMany(Purchase::class, 'buyer_id');
     }

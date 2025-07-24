@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,6 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-
 Route::get('/', [AuthController::class, 'index']);
 
 
@@ -23,6 +23,8 @@ Route::get('/', [AuthController::class, 'index']);
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::get('/setProfile', [UserController::class, 'setProfile'])->name('setProfile')->middleware(['auth', 'verified']);
+
+Route::get('/mypage', [UserController::class, 'mypage'])->name('mypage')->middleware(['auth', 'verified']);
 
 Route::post('/mypage/profile', [UserController::class, 'update'])->name('update')->middleware(['auth', 'verified']);
 
