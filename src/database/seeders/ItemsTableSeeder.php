@@ -16,7 +16,8 @@ class ItemsTableSeeder extends Seeder
      */
     public function run()
     {
-        $user = \App\Models\User::first();
+        $user = \App\Models\User::where('email', 'test@example.com')->first();
+
         $categoryMap = Category::pluck('id','name');
 
         $items = [

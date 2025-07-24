@@ -26,6 +26,7 @@ protected $fillable = [
         'postal_code',
         'address',
         'building',
+        'uuid',
     ];
 
     /**
@@ -36,7 +37,9 @@ protected $fillable = [
     protected $hidden = [
         'password',
         'remember_token',
+        'id',
     ];
+    use HasFactory;
 
     /**
      * The attributes that should be cast.

@@ -27,8 +27,7 @@ class ProfileRequest extends FormRequest
         return [
             'profile_image' => ['file', 'mimes:jpeg,png'],
             'name' => ['required', 'string', 'max:20'],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($this->user()->id)],
-            'postcode' => ['required', 'size:8'],
+            'postal_code' => ['required', 'regex:/^\d{3}-\d{4}$/'],
             'address' => ['required', 'string'],
         ];
     }
@@ -44,11 +43,8 @@ class ProfileRequest extends FormRequest
             'profile_image.mimes'  => 'プロフィール画像はjpegまたはpng形式で指定してください',
             'name.required' => 'お名前を入力してください',
             'name.max' => 'お名前は20文字以内で入力してください',
-            'email.required'  => 'メールアドレスを入力してください',
-            'email.email' => 'メールアドレスはメール形式で入力してください',
-            'email.unique' => 'このメールアドレスは既に使用されています',
-            'postcode.required'  => '郵便番号を入力してください',
-            'postcode.size'  => '郵便番号はハイフンありの8文字で入力してください',
+            'postal_code.required'  => '郵便番号を入力してください',
+            'postal_code.regex'  => '郵便番号は半角のXXX-XXXXの形式で入力してください',
             'address.required'  => '住所を入力してください',
         ];
     }
