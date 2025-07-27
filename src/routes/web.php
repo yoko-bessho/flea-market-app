@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ItemController;
 use App\Models\User;
 
 /*
@@ -16,7 +17,7 @@ use App\Models\User;
 |
 */
 
-Route::get('/', [AuthController::class, 'index']);
+Route::get('/', [ItemController::class, 'index']);
 
 
 

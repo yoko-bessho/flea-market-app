@@ -16,7 +16,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
 
     // public function confirm()
     // {
@@ -63,7 +63,7 @@ class UserController extends Controller
         $user = User::with(['sellItems', 'buyItems'])->find(Auth::id());
         $sellItems = $user->sellItems ?? collect();
         $buyItems = $user->buyItems ?? collect();
-        
+
         return view('mypage', compact('user', 'page', 'sellItems', 'buyItems'));
     }
 
@@ -116,6 +116,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        
+
     }
 }

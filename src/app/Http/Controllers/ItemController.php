@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Item;
 
 class ItemController extends Controller
 {
@@ -11,11 +14,16 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+        public function index(Request $request)
     {
-        //
-    }
+        $tab = $request->query('tab', 'recommended');
 
+        $user = User::with('mylistItems')->find(Auth::id());
+        $mylistItems = $user->mylistItems ?? collect();
+        $recommendedItems = Item::all();
+
+        return view('index', compact('user', 'tab', 'mylistItems', 'recommendedItems'));
+    }
     /**
      * Show the form for creating a new resource.
      *

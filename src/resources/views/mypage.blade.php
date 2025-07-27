@@ -81,8 +81,8 @@
             <div class="item-list">
                 @forelse ($buyItems as $item)
                 <div class="item-card">
-                    <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}">
-                    <h4>{{ $item->name }}</h4>
+                    <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}">
+                    <h4>{{ $item->title }}</h4>
                 </div>
                 @empty
                 <div class="item-card__placeholder">購入した商品はありません</div>
