@@ -5,6 +5,7 @@
   padding: 10px 20px;
   margin: 0 auto;
 }
+
 .header-nav__item {
   margin: 0 10px;
   text-decoration: none;
@@ -48,6 +49,22 @@
   font-size: 16px;
 }
 
+
+
+@media (max-width: 850px) {
+    .header-utilities {
+      display: block;
+    }
+    .header-nav {
+      display: flex;
+      justify-content: right;
+    }
+    .search-form {
+      display: block;
+      margin: 0 auto;
+      width: 70vw;
+    }
+  }
 
 
 /* mypage.blade.phpのcss */
@@ -132,6 +149,7 @@
   gap: 20px;
 }
 .item-card {
+  position: relative;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -149,6 +167,13 @@
   font-size: 18px;
   color: #333;
   margin: 10px 0;
+}
+.soldout {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  color: red;
+  font-size: 28px;
 }
 .item-card__placeholder {
   width: 300px;

@@ -71,6 +71,10 @@
                 <div class="item-card">
                     <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}">
                     <h4>{{ $item->title }}</h4>
+                    @if ($item->is_sold)
+                    <p class="soldout">sold out</p>
+                    @endif
+
                 </div>
                 @empty
                 <div class="item-card__placeholder">出品した商品はありません</div>
@@ -83,6 +87,9 @@
                 <div class="item-card">
                     <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}">
                     <h4>{{ $item->title }}</h4>
+                    @if ($item->is_sold)
+                    <p class="soldout">sold out</p>
+                    @endif
                 </div>
                 @empty
                 <div class="item-card__placeholder">購入した商品はありません</div>

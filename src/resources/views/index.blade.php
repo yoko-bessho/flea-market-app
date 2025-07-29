@@ -40,10 +40,10 @@
 @section('content')
 <div class="item-container">
     <div class="tab-header">
-        <a class="tab-link {{ $tab === 'recommended' ? 'active' : '' }}"  href="{{ url('/') }}?tab=recommended>おすすめ</a>
-        <a class="tab-link {{ $tab === 'mylist' ? 'active' : '' }}" href="{{ url('/') }}?tab=mylist
-        >マイリスト</a>
+        <a class="tab-link {{ $tab === 'recommended' ? 'active' : '' }}" href="{{ url('/') }}?tab=recommended">おすすめ</a>
+        <a class="tab-link {{ $tab === 'mylist' ? 'active' : '' }}" href="{{ url('/') }}?tab=mylist">マイリスト</a>
     </div>
+       
 
     <div class="tab-content">
         @if ($tab === 'recommended')
@@ -52,17 +52,23 @@
                 <div class="item-card">
                     <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}">
                     <h4>{{ $item->title }}</h4>
+                        @if ($item->is_sold)
+                        <p class="soldout">sold out</p>
+                        @endif
                 </div>
                 @empty
                 <p>出品されている商品はありません。</p>
                 @endforelse
             </div>
-        @elseif ($page === 'mylist')
+        @elseif ($tab === 'mylist')
             <div class="item-list">
                 @forelse ($mylistItems as $item)
                 <div class="item-card">
                     <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}">
                     <h4>{{ $item->title }}</h4>
+                        @if ($item->is_sold)
+                        <p class="soldout">sold out</p>
+                        @endif
                 </div>
                 @empty
                 <p>マイリストに商品はありません。</p>
