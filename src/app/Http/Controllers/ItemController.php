@@ -20,9 +20,14 @@ class ItemController extends Controller
         $tab = $request->query('tab', 'recommended');
 
         $user = Auth::user();
-        $mylistItems = $user->mylistItems;
+        $mylistItems = $user ? $user->mylistItems : collect();
 
-        $recommendedItems = Item::where('user_id', '!=', Auth::user()->id)->get();
+        if (Auth::check()) {
+                    $recommendedItems = Item::where('user_id', '!=', Auth::user()->id)->get();
+        } else {
+            $recommendedItems = Item::all();
+        }
+
 // dd($mylistItems);
         return view('index', compact( 'user', 'tab', 'mylistItems', 'recommendedItems'));
     }

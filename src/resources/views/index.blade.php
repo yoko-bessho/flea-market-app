@@ -71,7 +71,7 @@
                         @endif
                 </div>
                 @empty
-                <p>マイリストに商品はありません。</p>
+                <p></p>
                 @endforelse
             </div>
         @endif
