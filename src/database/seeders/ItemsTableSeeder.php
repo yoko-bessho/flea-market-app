@@ -30,6 +30,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'item_images/Armani_Mens_Clock.jpg',
                 'condition' => ItemCondition::GOOD,
                 'categories' => ['ファッション', 'メンズ'],
+                'is_sold' => true,
             ],
             [
                 'user_id' => $user->id,
@@ -40,6 +41,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'item_images/HDD_Hard_Disk.jpg',
                 'condition' => ItemCondition::OK,
                 'categories' => ['家電'],
+                'is_sold' => true,
             ],
             [
                 'user_id' => $user->id,
@@ -50,6 +52,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'item_images/onion.jpg',
                 'condition' => ItemCondition::FAIR,
                 'categories' => ['食品'],
+                'is_sold' => false,
             ],
             [
                 'user_id' => $user->id,
@@ -60,6 +63,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'item_images/Leather_Shoes.jpg',
                 'condition' => ItemCondition::POOR,
                 'categories' => ['ファッション', 'メンズ'],
+                'is_sold' => false,
             ],
             [
                 'user_id' => $user->id,
@@ -70,9 +74,10 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'item_images/Living_Room_Laptop.jpg',
                 'condition' => ItemCondition::GOOD,
                 'categories' => ['家電'],
+                'is_sold' => false,
             ],
             [
-                'user_id' => $user->id,
+                'user_id' => 2,
                 'title' => 'マイク',
                 'price' => '8000',
                 'brand' => 'なし',
@@ -80,9 +85,10 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'item_images/Music_Mic.jpg',
                 'condition' => ItemCondition::OK,
                 'categories' => ['家電'],
+                'is_sold' => true,
             ],
             [
-                'user_id' => $user->id,
+                'user_id' => 2,
                 'title' => 'ショルダーバッグ',
                 'price' => '3500',
                 'brand' => '',
@@ -90,9 +96,10 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'item_images/Purse_fashion_pocket.jpg',
                 'condition' => ItemCondition::FAIR,
                 'categories' => ['ファッション', 'レディース'],
+                'is_sold' => true,
             ],
             [
-                'user_id' => $user->id,
+                'user_id' => 2,
                 'title' => 'タンブラー',
                 'price' => '500',
                 'brand' => 'なし',
@@ -100,9 +107,10 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'item_images/Tumbler_souvenir.jpg',
                 'condition' => ItemCondition::POOR,
                 'categories' => ['キッチン'],
+                'is_sold' => true,
             ],
             [
-                'user_id' => $user->id,
+                'user_id' => 2,
                 'title' => 'コーヒーミル',
                 'price' => '4000',
                 'brand' => 'starbacks',
@@ -110,9 +118,10 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'item_images/Waitress_with_Coffee_Grinder.jpg',
                 'condition' => ItemCondition::GOOD,
                 'categories' => ['キッチン'],
+                'is_sold' => false,
             ],
             [
-                'user_id' => $user->id,
+                'user_id' => 2,
                 'title' => 'メイクセット',
                 'price' => '2500',
                 'brand' => '',
@@ -120,6 +129,7 @@ class ItemsTableSeeder extends Seeder
                 'image_path' => 'item_images/makeup_set.jpg',
                 'condition' => ItemCondition::OK,
                 'categories' => ['コスメ', 'レディース'],
+                'is_sold' => false,
             ],
         ];
         foreach ($items as $itemData) {
@@ -131,6 +141,7 @@ class ItemsTableSeeder extends Seeder
                 'description' => $itemData['description'],
                 'image_path' => $itemData['image_path'],
                 'condition' => $itemData['condition'],
+                'is_sold' => $itemData['is_sold'],
             ]);
 
             $categoryIds = collect($itemData['categories'])
