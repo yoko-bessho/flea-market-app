@@ -8,9 +8,12 @@
 
 
 @section('header')
-<form action="" class="search-form" method="get">
+<form class="search-form" action="{{ route('items.index') }}" method="get">
     <span class="search-form__item">
-        <input class="search-form__item-input" type="text" value="何をお探しですか？"/>
+        <input class="search-form__item-input" type="text"
+        name="keyword"
+        value="{{ old('keyword', $keyword) }}"
+        placeholder="何をお探しですか？" />
     </span>
 </form>
 <nav>
@@ -40,8 +43,8 @@
 @section('content')
 <div class="item-container">
     <div class="tab-header">
-        <a class="tab-link {{ $tab === 'recommended' ? 'active' : '' }}" href="{{ url('/') }}?tab=recommended">おすすめ</a>
-        <a class="tab-link {{ $tab === 'mylist' ? 'active' : '' }}" href="{{ url('/') }}?tab=mylist">マイリスト</a>
+        <a class="tab-link {{ $tab === 'recommended' ? 'active' : '' }}" href="{{ route('items.index') }}?tab=recommended">おすすめ</a>
+        <a class="tab-link {{ $tab === 'mylist' ? 'active' : '' }}" href="{{ route('items.index') }}?tab=mylist">マイリスト</a>
     </div>
        
 

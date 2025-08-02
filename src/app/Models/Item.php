@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\ItemCondition;
+use Illuminate\Support\Facades\Auth;
+
 
 class Item extends Model
 {
@@ -48,5 +50,13 @@ class Item extends Model
         return $this->hasOne(Purchase::class);
     }
 
+    public function scopeKeywordSearch($query, $keyword)
+    {
+        if (!empty($keyword)) {
+            $query->where(function($subquery) use ($keyword) {
+                $subquery->where('title', 'like', "%{$keyword}%");
+            });
+        }
+    }
 
 }

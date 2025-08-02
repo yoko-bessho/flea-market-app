@@ -17,9 +17,7 @@ use App\Models\User;
 |
 */
 
-Route::get('/', [ItemController::class, 'index']);
-
-
+Route::get('/', [ItemController::class, 'index'])->name('items.index');
 
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 

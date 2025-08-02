@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Item;
 use App\Models\Like;
+use Facade\Ignition\QueryRecorder\Query;
 
 class ItemController extends Controller
 {
@@ -15,22 +16,27 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-        public function index(Request $request)
+    public function index(Request $request)
     {
         $tab = $request->query('tab', 'recommended');
-
         $user = Auth::user();
         $mylistItems = $user ? $user->mylistItems : collect();
-
+        $keyword = $request->input('keyword');
         if (Auth::check()) {
-                    $recommendedItems = Item::where('user_id', '!=', Auth::user()->id)->get();
+                    $recommendedItems = Item::where('user_id', '!=', Auth::user()->id)
+                    ->keywordSearch($request->input('keyword'))
+                    ->get();
         } else {
-            $recommendedItems = Item::all();
+            $recommendedItems = Item::keywordSearch($request->input('keyword'))
+            ->get();
         }
 
-// dd($mylistItems);
-        return view('index', compact( 'user', 'tab', 'mylistItems', 'recommendedItems'));
+        return view('index', compact( 'user', 'tab', 'mylistItems', 'recommendedItems', 'keyword'));
     }
+
+
+
+
     /**
      * Show the form for creating a new resource.
      *
