@@ -50,13 +50,15 @@ class Item extends Model
         return $this->hasOne(Purchase::class);
     }
 
-    public function scopeKeywordSearch($query, $keyword)
+    public function scopeKeywordSearch($query, array $filters)
     {
-        if (!empty($keyword)) {
-            $query->where(function($subquery) use ($keyword) {
-                $subquery->where('title', 'like', "%{$keyword}%");
+        if (!empty($filters['keyword'])) {
+            $query->where(function($subquery) use ($filters) {
+                $subquery->where('title', 'like', '%' . $filters['keyword' ] . '%');
             });
         }
+
+        return $query;
     }
 
 }

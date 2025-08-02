@@ -25,7 +25,7 @@ class LikesTableSeeder extends Seeder
                 continue;
             }
 
-            $likeCount = rand(1,5);
+            $likeCount = rand(3,5);
             $randomItemIds = collect($otherItems)->random($likeCount);
 
             $user->mylistItems()->syncWithoutDetaching($randomItemIds);

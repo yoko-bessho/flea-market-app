@@ -20,18 +20,25 @@ class ItemController extends Controller
     {
         $tab = $request->query('tab', 'recommended');
         $user = Auth::user();
-        $mylistItems = $user ? $user->mylistItems : collect();
-        $keyword = $request->input('keyword');
+        $filters = $request->only(['keyword']);
+
+        if ($user) {
+            $mylistItems = $user->mylistItems()->keywordSearch($filters)->get();
+        } else {
+            $mylistItems = collect();
+        }
+
+
         if (Auth::check()) {
                     $recommendedItems = Item::where('user_id', '!=', Auth::user()->id)
-                    ->keywordSearch($request->input('keyword'))
+                    ->keywordSearch($filters)
                     ->get();
         } else {
-            $recommendedItems = Item::keywordSearch($request->input('keyword'))
+            $recommendedItems = Item::keywordSearch($filters)
             ->get();
         }
 
-        return view('index', compact( 'user', 'tab', 'mylistItems', 'recommendedItems', 'keyword'));
+        return view('index', compact( 'user', 'tab', 'mylistItems', 'recommendedItems', 'filters'));
     }
 
 

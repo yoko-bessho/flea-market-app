@@ -12,7 +12,8 @@
     <span class="search-form__item">
         <input class="search-form__item-input" type="text"
         name="keyword"
-        value="{{ old('keyword', $keyword) }}"
+        value="{{ old('keyword', $filters['keyword'] ?? ''
+        ) }}"
         placeholder="何をお探しですか？" />
     </span>
 </form>
@@ -43,8 +44,8 @@
 @section('content')
 <div class="item-container">
     <div class="tab-header">
-        <a class="tab-link {{ $tab === 'recommended' ? 'active' : '' }}" href="{{ route('items.index') }}?tab=recommended">おすすめ</a>
-        <a class="tab-link {{ $tab === 'mylist' ? 'active' : '' }}" href="{{ route('items.index') }}?tab=mylist">マイリスト</a>
+        <a class="tab-link {{ $tab === 'recommended' ? 'active' : '' }}" href="{{ route('items.index', array_merge(request()->query(), ['tab' => 'recommended'])) }}">おすすめ</a>
+        <a class="tab-link {{ $tab === 'mylist' ? 'active' : '' }}" href="{{ route('items.index', array_merge(request()->query(), ['tab' => 'mylist'])) }}">マイリスト</a>
     </div>
        
 
