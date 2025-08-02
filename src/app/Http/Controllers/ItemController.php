@@ -24,19 +24,14 @@ class ItemController extends Controller
 
         if ($user) {
             $mylistItems = $user->mylistItems()->keywordSearch($filters)->get();
+            $recommendedItems = Item::where('user_id', '!=', $user->id)
+                ->keywordSearch($filters)
+                ->get();
         } else {
             $mylistItems = collect();
+            $recommendedItems = Item::keywordSearch($filters)->get();
         }
 
-
-        if (Auth::check()) {
-                    $recommendedItems = Item::where('user_id', '!=', Auth::user()->id)
-                    ->keywordSearch($filters)
-                    ->get();
-        } else {
-            $recommendedItems = Item::keywordSearch($filters)
-            ->get();
-        }
 
         return view('index', compact( 'user', 'tab', 'mylistItems', 'recommendedItems', 'filters'));
     }
