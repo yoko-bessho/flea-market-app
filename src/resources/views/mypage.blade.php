@@ -74,7 +74,6 @@
                     @if ($item->is_sold)
                     <p class="soldout">sold out</p>
                     @endif
-
                 </div>
                 @empty
                 <div class="item-card__placeholder">出品した商品はありません</div>

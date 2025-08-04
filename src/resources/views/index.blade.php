@@ -54,11 +54,13 @@
             <div class="item-list">
                 @forelse ($recommendedItems as $item)
                 <div class="item-card">
+                    <a href="{{ route('item.detail', ['item_id' => $item->id]) }}" class="item-link">
                     <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}">
+                    </a>
                     <h4>{{ $item->title }}</h4>
-                        @if ($item->is_sold)
-                        <p class="soldout">sold out</p>
-                        @endif
+                    @if ($item->is_sold)
+                    <p class="soldout">sold out</p>
+                    @endif
                 </div>
                 @empty
                 <p>出品されている商品はありません。</p>
@@ -68,7 +70,9 @@
             <div class="item-list">
                 @forelse ($mylistItems as $item)
                 <div class="item-card">
+                    <a href="item-detail/{{ $item->id}}" class="item-link">
                     <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}">
+                    </a>
                     <h4>{{ $item->title }}</h4>
                         @if ($item->is_sold)
                         <p class="soldout">sold out</p>

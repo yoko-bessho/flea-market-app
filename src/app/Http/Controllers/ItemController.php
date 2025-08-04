@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Item;
+use App\Enums\ItemCondition;
 use App\Models\Like;
 use Facade\Ignition\QueryRecorder\Query;
 
@@ -16,6 +18,7 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index(Request $request)
     {
         $tab = $request->query('tab', 'recommended');
@@ -31,7 +34,6 @@ class ItemController extends Controller
             $mylistItems = collect();
             $recommendedItems = Item::keywordSearch($filters)->get();
         }
-
 
         return view('index', compact( 'user', 'tab', 'mylistItems', 'recommendedItems', 'filters'));
     }
@@ -66,9 +68,13 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show ($id)
     {
-        //
+        $item = Item::with('categories', 'likes', 'commentingUsers')->find($id);
+        $commenters = $item->commentingUsers;
+        $conditionlabel = ItemCondition::label($item->condition);
+
+        return view('item-detail', compact('item', 'commenters', 'conditionlabel'));
     }
 
     /**

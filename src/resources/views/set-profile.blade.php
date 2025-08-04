@@ -9,7 +9,7 @@
 @section('content')
 <div class="register-form__content">
     <div class="register-form__heading">
-      <h2>プロフィール設定</h2>
+        <h2>プロフィール設定</h2>
     </div>
     <form class="form" action="mypage/profile" method="post" enctype="multipart/form-data">
         @csrf
