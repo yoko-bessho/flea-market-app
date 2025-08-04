@@ -40,15 +40,18 @@ class Item extends Model
         return $this->belongsToMany(User::class, 'likes');
     }
 
-    public function comments()
+    public function commentingUsers()
     {
-        return $this->hasMany(Comment::class);
+        return $this->belongsToMany(user::class, 'comments')
+            ->withPivot('text')
+            ->withTimestamps();
     }
 
     public function purchase()
     {
         return $this->hasOne(Purchase::class);
     }
+
 
     public function scopeKeywordSearch($query, array $filters)
     {

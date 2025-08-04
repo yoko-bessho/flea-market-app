@@ -18,12 +18,12 @@ use App\Models\User;
 */
 
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
+Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('item.detail');
 
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
-Route::get('/setProfile', [UserController::class, 'setProfile'])->name('setProfile')->middleware(['auth', 'verified']);
-
-Route::get('/mypage', [UserController::class, 'mypage'])->name('mypage')->middleware(['auth', 'verified']);
-
-Route::post('/mypage/profile', [UserController::class, 'update'])->name('update')->middleware(['auth', 'verified']);
-
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/setProfile', [UserController::class, 'setProfile'])->name('setProfile');
+    Route::get('/mypage', [UserController::class, 'mypage'])->name('mypage');
+    Route::post('/mypage/profile', [UserController::class, 'update'])->name('update');
+});
