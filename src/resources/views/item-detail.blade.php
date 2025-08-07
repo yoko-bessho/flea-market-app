@@ -56,12 +56,22 @@
         <h1 class="title">{{ $item->title }}</h1>
         <p class="brand">{{ $item->brand }}</p>
         <span class="price">¥ {{ number_format($item->price) }}</span><span>(税込)</span>
-        <div class="reaction-count">
+        <div class="reaction">
             <span class="like-count">
-                星マークとカウンタ
+                <form action="{{ route('item.like', $item->id)}}" method="post">
+                    @csrf
+                    <button class="button-like {{ $item->likes->contains(auth()->user()) ? 'button-unlike' : ''}}" type="submit">
+                      {{ $item->likes->contains(auth()->user()) ? '⭐︎' : '★' }}
+                    </button>
+                </form>
+                <p class="reaction-count--like">{{ $item->likes->count() }}</p>
             </span>
+
             <span class="comment-count">
-                コメントマークとカウンタ
+                <div class="comment-icon">
+                </div>
+                <p class="reaction-count--comment">{{ $item->commentingUsers->count() }}</p>
+                
             </span>
         </div>
         <div class="form__button-submit purchase-form__button-submit">
@@ -74,15 +84,15 @@
         <h2 class="title">商品の情報</h2>
         <table class="item-infomation">
             <tr>
-                <th>カテゴリー　　　　</th>
+                <th class="title-header">カテゴリー</th>
                 <td class="item-category">
                     @foreach ($item->categories as $category)
-                        {{ $category->name }}
+                        <span>{{ $category->name }}</span>
                     @endforeach
                 </td>
             </tr>
             <tr>
-                <th class="item-condition">商品の状態　　　　</th>
+                <th class="item-condition">商品の状態</th>
                 <td>{{ $conditionlabel }}</td>
             </tr>
         </table>
@@ -101,16 +111,25 @@
                         <div class="profile-placeholder"></div>
                         @endif
                     </div>
-                    <h4>{{ $user->name }}</h4>
+                    <h4 class="commenter-name">{{ $user->name }}</h4>
                 </div>
-                <div class="comment-text">
+                <div class="commenter-text">
                   {{ $user->pivot->text}}
                 </div>
             </div>
             @endforeach
             <form class="comment-form" action="">
-                <h4>商品へのコメント</h4>
-                <textarea name="" id="" cols="32" rows="8"></textarea>
+                <h4 class="comment-header">商品へのコメント</h4>
+                <textarea name="" id="field"></textarea>
+                <div id="charCount"></div>
+                <script>
+                    const textarea = document.getElementById('field');
+                    textarea.addEventListener('input', function() {
+                      const thisVal = this.value;
+                      const charCount = thisVal.length;
+                      document.getElementById('charCount').innerText = charCount+'/最大255文字';
+                    });
+                </script>
                 <button class="form__button-submit">コメントを送信する</button>
             </form>
         </div>

@@ -34,7 +34,11 @@
 }
 .title {
   margin: 20px auto;
+  margin-top: 0;
 }
+/* .title-header {
+  text-align: ;
+} */
 
 .brand {
   margin-top: 0;
@@ -42,6 +46,60 @@
 .price {
   font-size: 23px;
 }
+
+.reaction {
+  display: flex;
+  flex-direction: row;
+}
+.like-count {
+  margin: 0 10px;
+}
+.button-like {
+  color: yellow;
+  border: none;
+  background-color: #fff;
+  font-size: 23px;
+  cursor: pointer;
+}
+.reaction-count--like {
+  text-align: center;
+  margin: 9px;
+}
+.reaction-count--comment {
+    text-align: center;
+}
+.button-unlike {
+  background-color: white;
+  margin: 0 auto;
+}
+
+.comment-icon {
+  margin: 0 auto;
+  position: relative;
+  padding: 13px;
+  background-color: #e1f5fe;
+  border-radius: 10px;
+  border: #999 solid 1px;
+  width: fit-content;
+  max-width: 90%;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.comment-icon::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 28%;
+  margin-left: -6px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid #ccc;
+  border-left: 1px solid transparent;
+  border-right: 5px solid transparent;
+  transform: rotate(17deg);
+}
+
+
 .purchase-form__button-submit {
   text-align: center;
 }
@@ -53,18 +111,73 @@
 
 tr {
   text-align: left;
+  margin: 5px 0;
 }
 tr:first-of-type {
   display: inline-block;
 }
-.item-category {
-  padding: 0 11px;
+.item-category span {
+  padding: 3px 5px;
   border-radius: 12px;
   background-color: rgb(188, 188, 188);
 }
 .form__button-submit {
   margin-top: 10px;
 }
+.commenter {
+  display: flex;
+  justify-content: flex-start;
+}
+.profile-image {
+  width: 70px;
+  height: 70px;
+    border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #ccc;
+}
+.profile-placeholder {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+}
+.commenter-name {
+  margin-left: 20px;
+}
+.commenter-text {
+  margin: 15px 0;
+  background-color: #f0f0f0;
+}
+.comment-header {
+  margin-bottom: 5px;
+}
 textarea {
+  width: 100%;
+  max-width: 1540px;
+  height: 200px;
   font-size: 20px;
+}
+
+@media (max-width: 870px) {
+  .item-card {
+    padding: 0;
+    width: 45%;
+  }
+  .item-card__img-wrapper {
+    padding: 0;
+  }
+  .item-detail {
+    width: 55%;
+    padding: 10px 20px;
+  }
+  .item-condition .title-header{
+    width: 40%;
+  }
+  .item-category {
+    padding-left: 15px;
+  }
 }
