@@ -68,14 +68,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Item::class, 'likes', 'user_id', 'item_id');
     }
 
-    public function commentedIetms()
+    public function commentedItems()
     {
         return $this->belongsToMany(Item::class, 'comments')
             ->withPivot('comment')
             ->withTimestamps();
     }
-
-
 
 
 }

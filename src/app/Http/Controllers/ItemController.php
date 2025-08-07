@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Item;
 use App\Enums\ItemCondition;
+use App\Http\Requests\CommentRequest;
 use App\Models\Like;
 use Facade\Ignition\QueryRecorder\Query;
 use PhpParser\Builder\Function_;
@@ -91,11 +92,10 @@ class ItemController extends Controller
         return back();
     }
 
-    public function comment(Request $request, Item $item)
+    public function comment(CommentRequest $request, Item $item)
     {
         $user = auth::user();
-        $user->commentedIetms()->attach($item->id, $request->only('text'));
-        
+        $user->commentedItems()->attach($item->id, $request->only('text'));
         return back();
     }
     /**
