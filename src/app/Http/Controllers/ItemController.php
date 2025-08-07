@@ -10,6 +10,8 @@ use App\Models\Item;
 use App\Enums\ItemCondition;
 use App\Models\Like;
 use Facade\Ignition\QueryRecorder\Query;
+use PhpParser\Builder\Function_;
+use Symfony\Component\CssSelector\Node\FunctionNode;
 
 class ItemController extends Controller
 {
@@ -77,6 +79,25 @@ class ItemController extends Controller
         return view('item-detail', compact('item', 'commenters', 'conditionlabel'));
     }
 
+    public Function like(Item $item)
+    {
+        $user = auth()->user();
+        $isLiked = $user->mylistItems()->where('item_id', $item->id)->exists();
+        if ($isLiked) {
+            $user->mylistItems()->detach($item->id);
+        }else {
+            $user->mylistItems()->attach($item->id);
+        }
+        return back();
+    }
+
+    public function comment(Request $request, Item $item)
+    {
+        $user = auth::user();
+        $user->commentedIetms()->attach($item->id, $request->only('text'));
+        
+        return back();
+    }
     /**
      * Show the form for editing the specified resource.
      *

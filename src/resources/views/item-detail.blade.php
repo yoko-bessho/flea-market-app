@@ -61,17 +61,15 @@
                 <form action="{{ route('item.like', $item->id)}}" method="post">
                     @csrf
                     <button class="button-like {{ $item->likes->contains(auth()->user()) ? 'button-unlike' : ''}}" type="submit">
-                      {{ $item->likes->contains(auth()->user()) ? '⭐︎' : '★' }}
+                      {{ $item->likes->contains(auth()->user()) ? '★' : '★' }}
                     </button>
                 </form>
                 <p class="reaction-count--like">{{ $item->likes->count() }}</p>
             </span>
 
             <span class="comment-count">
-                <div class="comment-icon">
-                </div>
+                <div class="comment-icon"></div>
                 <p class="reaction-count--comment">{{ $item->commentingUsers->count() }}</p>
-                
             </span>
         </div>
         <div class="form__button-submit purchase-form__button-submit">
@@ -97,7 +95,7 @@
             </tr>
         </table>
         <div class="cmment-area">
-            <h3 class="title">コメント(数)</h3>
+            <h3 class="title">コメント（{{ $item->commentingUsers->count() }}）</h3>
             @foreach ($commenters as $user)
             <div class="item-comment">
                 <div class="commenter">
@@ -118,9 +116,10 @@
                 </div>
             </div>
             @endforeach
-            <form class="comment-form" action="">
+            <form class="comment-form" action="{{ route('item.comment', $item->id) }}" method="post">
+                @csrf
                 <h4 class="comment-header">商品へのコメント</h4>
-                <textarea name="" id="field"></textarea>
+                <textarea name="text" id="field"></textarea>
                 <div id="charCount"></div>
                 <script>
                     const textarea = document.getElementById('field');
@@ -130,7 +129,7 @@
                       document.getElementById('charCount').innerText = charCount+'/最大255文字';
                     });
                 </script>
-                <button class="form__button-submit">コメントを送信する</button>
+                <button class="form__button-submit" type="submit">コメントを送信する</button>
             </form>
         </div>
     </div>

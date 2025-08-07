@@ -2,9 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ItemController;
-use App\Models\User;
+use App\Models\Item;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +19,15 @@ use App\Models\User;
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('item.detail');
 
-Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+
+Route::get('/logout', [ItemController::class, 'logout'])->name('logout');
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/setProfile', [UserController::class, 'setProfile'])->name('setProfile');
     Route::get('/mypage', [UserController::class, 'mypage'])->name('mypage');
     Route::post('/mypage/profile', [UserController::class, 'update'])->name('update');
+
+    Route::post('/item/{item}/like', [ItemController::class, 'like'])->name('item.like');
+    Route::post('/item/{item}/comment', [ItemController::class, 'comment'])->name('item.comment');
 });
