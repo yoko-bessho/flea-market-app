@@ -18,11 +18,6 @@ class UserController extends Controller
      */
 
 
-    // public function confirm()
-    // {
-    //     return view('auth.confirm');
-    // }
-
     public function setProfile(Request $request)
     {
         $user = Auth::user();

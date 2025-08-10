@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\CssSelector\Node\FunctionNode;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -29,6 +31,17 @@ class User extends Authenticatable implements MustVerifyEmail
         'building',
         'uuid',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(Function ($user) {
+            if (empty($user->uuid)) {
+                $user->uuid = (string) Str::uuid();
+            }
+        });
+    }
 
     /**
      * The attributes that should be hidden for serialization.
