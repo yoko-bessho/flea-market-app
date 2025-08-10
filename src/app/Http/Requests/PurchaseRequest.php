@@ -26,8 +26,17 @@ class PurchaseRequest extends FormRequest
     public function rules()
     {
         return [
-            'payment_method' => ['required', Rule::in(PaymentMethod::values())],
-            'address_id' => ['required', 'integer', 'exists:addresses,id'],
+            'payment_method' =>
+                [
+                'required',
+                Rule::in(PaymentMethod::values())
+                ],
+            'address_id' =>
+                [
+                'required',
+                'integer',
+                'exists:addresses,id'
+                ],
         ];
     }
 

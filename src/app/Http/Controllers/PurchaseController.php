@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
+use Auth;
 use Illuminate\Http\Request;
+use App\Enums\PaymentMethod;
 
 class PurchaseController extends Controller
 {
@@ -11,9 +14,13 @@ class PurchaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function purchase($id)
     {
-        //
+        $item = Item::find($id);
+        $user = auth()->user();
+        $paymentlabels = PaymentMethod::labels();
+
+        return view('purchase', compact('item', 'user', 'paymentlabels'));
     }
 
     /**
@@ -21,9 +28,22 @@ class PurchaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function purchaseItems(Request $request, Item $item)
     {
-        //
+        $user = auth::user();
+
+        $user->buyItems()->create([
+            'item_id' => $item->id,
+            'shipping_postal_code' => $user->postal_code,
+            'shipping_address' => $user->address,
+            'shipping_building' => $user->building,
+            'payment_method' => $request->payment_method,
+            'payment_status' => $request->payment_status,
+        ]);
+
+        $item->update(['is_sold' => 1]);
+
+        return redirect('/');
     }
 
     /**

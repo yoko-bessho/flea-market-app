@@ -75,9 +75,9 @@ class ItemController extends Controller
     {
         $item = Item::with('categories', 'likes', 'commentingUsers')->find($id);
         $commenters = $item->commentingUsers;
-        $conditionlabel = ItemCondition::label($item->condition);
+        $conditionlabels = \App\Enums\ItemCondition::labels($item->condition);
 
-        return view('item-detail', compact('item', 'commenters', 'conditionlabel'));
+        return view('item-detail', compact('item', 'commenters', 'conditionlabels'));
     }
 
     public Function like(Item $item)

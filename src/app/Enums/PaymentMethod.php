@@ -2,13 +2,24 @@
 
 namespace App\Enums;
 
-enum PaymentMethod: string
+class PaymentMethod
 {
-    case Card = 'card';
-    case Convenience = 'convenience';
+    public const CARD = 'card';
+    public const CONVENIENCE = 'convenience';
 
     public static function values(): array
     {
-        return array_column(self::cases(), 'value');
+        return [
+            self::CARD,
+            self::CONVENIENCE,
+        ];
+    }
+
+    public static function labels(): array
+    {
+        return [
+            self::CARD => 'カード支払い',
+            self::CONVENIENCE => 'コンビニ払い'
+        ];
     }
 }

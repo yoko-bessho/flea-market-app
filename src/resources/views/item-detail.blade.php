@@ -73,7 +73,7 @@
             </span>
         </div>
         <div class="form__button-submit purchase-form__button-submit">
-            <a class="goto-purchase" href="#">購入手続きへ</a>
+            <a class="goto-purchase" href="/purchase/{{ $item->id }}">購入手続きへ</a>
         </div>
         <h2 class="title">商品説明</h2>
         <div class="item-description">
@@ -91,7 +91,7 @@
             </tr>
             <tr>
                 <th class="item-condition">商品の状態</th>
-                <td>{{ $conditionlabel }}</td>
+                <td>{{ $conditionlabels }}</td>
             </tr>
         </table>
         <div class="cmment-area">

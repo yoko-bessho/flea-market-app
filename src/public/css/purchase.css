@@ -1,0 +1,68 @@
+.purchase-content {
+  max-width: 1540px;
+}
+.purchase-content__form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.purchase-detail {
+  width: 60%;
+  padding: 70px;
+}
+.item {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+.item-price {
+  font-size: 22px;
+}
+.payment-method, .delivery-address {
+  width: 100%;
+  border-top: #ddd 1px solid;
+  padding-top: 40px;
+  margin-top: 30px;
+}
+.payment-method__select {
+  margin: 0 30px;
+  width: 40%;
+  height: 34px;
+}
+.delivery-address {
+  display: flex;
+  justify-content: space-between;
+}
+.delivery-address a {
+  text-decoration: none;
+  font-size: 18px;
+  margin-right: 60px;
+}
+.postal-code, .address {
+  padding-left: 50px;
+}
+.address {
+  padding-bottom: 30px;
+  border-bottom: #ddd 1px solid;
+}
+
+
+
+.confirmation {
+  width: 40%;
+  padding: 66px;
+}
+table {
+  width: 100%;
+  padding: 20px;
+}
+tr {
+  border: #ddd 1px solid;
+  height: 90px;
+}
+td {
+  padding: 30px;
+}
+.form__button-submit {
+  text-align: center;
+}

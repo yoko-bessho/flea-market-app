@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\PurchaseController;
 use App\Models\Item;
 
 /*
@@ -30,4 +31,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/item/{item}/like', [ItemController::class, 'like'])->name('item.like');
     Route::post('/item/{item}/comment', [ItemController::class, 'comment'])->name('item.comment');
+
+    Route::get('/purchase/{item_id}', [PurchaseController::class, 'purchase'])->name('purchase');
 });
