@@ -27,7 +27,7 @@ class ProfileRequest extends FormRequest
         return [
             'profile_image' => ['file', 'mimes:jpeg,png'],
             'name' => ['required', 'string', 'max:20'],
-            'postal_code' => ['required', 'regex:/^\d{3}-\d{4}$/'],
+            'postal_code' => ['required', 'regex:/^[0-9]{3}-[0-9]{4}$/'],
             'address' => ['required', 'string'],
         ];
     }
