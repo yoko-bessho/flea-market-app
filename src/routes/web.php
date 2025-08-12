@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
 use App\Models\Item;
+use App\Models\Purchase;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +34,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/item/{item}/comment', [ItemController::class, 'comment'])->name('item.comment');
 
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'purchase'])->name('purchase');
+    Route::post('/purchase/{item}/buyItem', [PurchaseController::class, 'buyItem'])->name('item.buyItem');
 });

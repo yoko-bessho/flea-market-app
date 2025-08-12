@@ -82,13 +82,10 @@
 
         @elseif ($page === 'buy')
             <div class="item-list">
-                @forelse ($buyItems as $item)
+                @forelse ($purchases as $item)
                 <div class="item-card">
-                    <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}">
-                    <h4>{{ $item->title }}</h4>
-                    @if ($item->is_sold)
-                    <p class="soldout">sold out</p>
-                    @endif
+                    <img src="{{ asset('storage/' . $item->item->image_path) }}" alt="{{ $item->item->title }}">
+                    <h4>{{ $item->item->title }}</h4>
                 </div>
                 @empty
                 <div class="item-card__placeholder">購入した商品はありません</div>

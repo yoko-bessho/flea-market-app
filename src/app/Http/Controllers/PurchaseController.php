@@ -20,6 +20,11 @@ class PurchaseController extends Controller
         $user = auth()->user();
         $paymentlabels = PaymentMethod::labels();
 
+        if ($user->postal_code == null || $user->address == null )
+        {
+            return redirect('/setProfile');
+        }
+
         return view('purchase', compact('item', 'user', 'paymentlabels'));
     }
 
@@ -28,21 +33,21 @@ class PurchaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function purchaseItems(Request $request, Item $item)
+    public function buyItem(Request $request, Item $item)
     {
-        $user = auth::user();
+        $user = auth()->user();
 
-        $user->buyItems()->create([
-            'item_id' => $item->id,
+        $user->purchases()->create([
+            'item_id'              => $item->id,
             'shipping_postal_code' => $user->postal_code,
-            'shipping_address' => $user->address,
-            'shipping_building' => $user->building,
-            'payment_method' => $request->payment_method,
-            'payment_status' => $request->payment_status,
+            'shipping_address'     => $user->address,
+            'shipping_building'    => $user->building,
+            'payment_method'       => $request->payment_method,
+            'payment_status'       => 'pending', // 例：初期ステータス
+            'order_status'         => 'preparing', // 例：初期ステータス
+
         ]);
-
-        $item->update(['is_sold' => 1]);
-
+        $item->update(['is_sold' => true]);
         return redirect('/');
     }
 

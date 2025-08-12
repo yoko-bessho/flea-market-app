@@ -55,11 +55,11 @@ class UserController extends Controller
     {
         $page = $request->query('page', 'sell');
 
-        $user = User::with(['sellItems', 'buyItems'])->find(Auth::id());
+        $user = User::with(['sellItems', 'purchases.item'])->find(Auth::id());
         $sellItems = $user->sellItems ?? collect();
-        $buyItems = $user->buyItems ?? collect();
+        $purchases = $user->purchases ?? collect();
 
-        return view('mypage', compact('user', 'page', 'sellItems', 'buyItems'));
+        return view('mypage', compact('user', 'page', 'sellItems', 'purchases'));
     }
 
 

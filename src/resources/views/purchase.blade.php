@@ -43,7 +43,8 @@
 
 @section('content')
 <div class="purchase-content">
-    <form class="purchase-content__form" action="" method="post">
+    <form class="purchase-content__form" action="{{ route('item.buyItem', ['item' => $item]) }}" method="post">
+        @csrf
         <div class="purchase-detail">
             <div class="item">
                 <div class="item-card">
@@ -58,7 +59,7 @@
             </div>
             <div>
                 <h3 class="payment-method">支払い方法</h3>
-                <select class="payment-method__select" name="payment_method" id="">
+                <select class="payment-method__select" name="payment_method" id="paymentMethodSelect">
                     @foreach ($paymentlabels as $value => $label)
                         <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
@@ -80,10 +81,24 @@
                 </tr>
                 <tr>
                     <td>支払い方法</td>
-                    <td>選択した支払い方法表示</td>
+                    <td id="selectedPaymentMethod">未選択</td>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                          const select = document.getElementById('paymentMethodSelect');
+                          const display = document.getElementById('selectedPaymentMethod');
+
+                          display.textContent = select.options[select.selectedIndex].text;
+
+                          select.addEventListener('change', function() {
+                            display.textContent = select.options[select.selectedIndex].text;
+                          });
+                        });
+                    </script>
                 </tr>
             </table>
-            <div class="form__button-submit">購入する</div>
+            <button type="submit"
+             class="form__button-submit">購入する</button>
         </div>
     </form>
 </div>
