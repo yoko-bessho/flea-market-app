@@ -70,6 +70,7 @@
                 </div>
                 <p class="postal-code">{{ $user->postal_code}}</p>
                 <p class="address">{{ $user->address }}</p>
+                <p class="building">{{ $user->building }}</p>
             </div>
         </div>
 

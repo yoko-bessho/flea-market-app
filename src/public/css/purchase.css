@@ -38,10 +38,10 @@
   font-size: 18px;
   margin-right: 60px;
 }
-.postal-code, .address {
+.postal-code, .address, .building {
   padding-left: 50px;
 }
-.address {
+.building {
   padding-bottom: 30px;
   border-bottom: #ddd 1px solid;
 }
@@ -65,4 +65,20 @@ td {
 }
 .form__button-submit {
   text-align: center;
+}
+
+@media (max-width: 870px) {
+  .purchase-content__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  }
+  .purchase-detail {
+    width: 100%;
+    padding: 70px;
+  }
+ .confirmation {
+    width: 100%;
+    padding: 0 10%;
+  }
 }
