@@ -66,7 +66,7 @@
                 </select>
                 <div class="delivery-address">
                     <h3>配送先</h3>
-                    <a class="change-address" href="">変更する</a>
+                    <a class="change-address" href="{{ route('purchase.address.edit', $item) }}">変更する</a>
                 </div>
                 <p class="postal-code">{{ $user->postal_code}}</p>
                 <p class="address">{{ $user->address }}</p>

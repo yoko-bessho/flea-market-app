@@ -21,7 +21,6 @@ use App\Models\Purchase;
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('item.detail');
 
-
 Route::get('/logout', [ItemController::class, 'logout'])->name('logout');
 
 
@@ -33,6 +32,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/item/{item}/like', [ItemController::class, 'like'])->name('item.like');
     Route::post('/item/{item}/comment', [ItemController::class, 'comment'])->name('item.comment');
 
-    Route::get('/purchase/{item_id}', [PurchaseController::class, 'purchase'])->name('purchase');
+    Route::get('/purchase/{item}', [PurchaseController::class, 'purchase'])->name('purchase');
     Route::post('/purchase/{item}/buyItem', [PurchaseController::class, 'buyItem'])->name('item.buyItem');
+
+    Route::get('/purchase/address-edit/{item}', [PurchaseController::class, 'addressEdit'])->name('purchase.address.edit');
+    Route::post('/purchase/address-update/{item}', [PurchaseController::class, 'addressUpdate'])->name('address.update');
+
 });

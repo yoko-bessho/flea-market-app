@@ -14,9 +14,8 @@ class PurchaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function purchase($id)
+    public function purchase(Item $item)
     {
-        $item = Item::find($id);
         $user = auth()->user();
         $paymentlabels = PaymentMethod::labels();
 
@@ -43,12 +42,27 @@ class PurchaseController extends Controller
             'shipping_address'     => $user->address,
             'shipping_building'    => $user->building,
             'payment_method'       => $request->payment_method,
-            'payment_status'       => 'pending', // 例：初期ステータス
-            'order_status'         => 'preparing', // 例：初期ステータス
+            'payment_status'       => 'pending', // 初期ステータス
+            'order_status'         => 'preparing', // 初期ステータス
 
         ]);
         $item->update(['is_sold' => true]);
         return redirect('/');
+    }
+
+    public function addressEdit(Item $item)
+    {
+        $user = auth()->user();
+        return view('change-address', compact('item', 'user'));
+    }
+
+    public function addressUpdate(Request $request, Item $item)
+    {
+        $user = Auth::user();
+        $userData = $request->only(['postal_code', 'address', 'building']);
+        $user->update($userData);
+        // dd($item);
+        return redirect()->route('purchase', ['item' => $item]);
     }
 
     /**
@@ -106,4 +120,6 @@ class PurchaseController extends Controller
     {
         //
     }
+
+
 }
