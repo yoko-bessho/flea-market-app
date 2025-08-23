@@ -23,7 +23,7 @@ class CreatePurchasesTable extends Migration
             $table->string('payment_method', 20);
             $table->string('payment_status', 20);
             $table->timestamp('paid_at')->nullable();
-            $table->string('order_status', 20);
+            $table->string('checkout_session_id')->nullable();
             $table->timestamps();
         });
     }

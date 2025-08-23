@@ -33,7 +33,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/item/{item}/comment', [ItemController::class, 'comment'])->name('item.comment');
 
     Route::get('/purchase/{item}', [PurchaseController::class, 'purchase'])->name('purchase');
-    Route::post('/purchase/{item}/buyItem', [PurchaseController::class, 'buyItem'])->name('item.buyItem');
+    // Route::post('/purchase/{item}/buyItem', [PurchaseController::class, 'buyItem'])->name('item.buyItem');
+
+
+    Route::post('/checkout', [PurchaseController::class, 'checkout'])->name('checkout');
+    Route::get('/chackout/success', [PurchaseController::class, 'success'])->name('success');
+    Route::get('/chackout/cancel', [PurchaseController::class, 'cancel'])->name('cancel');
+
 
     Route::get('/purchase/address-edit/{item}', [PurchaseController::class, 'addressEdit'])->name('purchase.address.edit');
     Route::post('/purchase/address-update/{item}', [PurchaseController::class, 'addressUpdate'])->name('address.update');

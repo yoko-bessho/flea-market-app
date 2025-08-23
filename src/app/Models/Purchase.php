@@ -18,7 +18,7 @@ class Purchase extends Model
         'payment_method',
         'payment_status',
         'paid_at',
-        'order_status',
+        'checkout_session_id',
     ];
 
     public function item()

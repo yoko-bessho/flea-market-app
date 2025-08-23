@@ -43,8 +43,10 @@
 
 @section('content')
 <div class="purchase-content">
-    <form class="purchase-content__form" action="{{ route('item.buyItem', ['item' => $item]) }}" method="post">
+    <form class="purchase-content__form" action="{{ route('checkout') }}" method="post">
         @csrf
+        <input type="hidden" name="item_id" value="{{ $item->id }}">
+
         <div class="purchase-detail">
             <div class="item">
                 <div class="item-card">
