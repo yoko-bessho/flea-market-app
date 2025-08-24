@@ -91,7 +91,7 @@
             </tr>
             <tr>
                 <th class="item-condition">商品の状態</th>
-                <td>{{ $conditionlabels }}</td>
+                <td>{{ \App\Enums\ItemCondition::label($item->condition) }}</td>
             </tr>
         </table>
         <div class="cmment-area">

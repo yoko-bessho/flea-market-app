@@ -1,0 +1,100 @@
+.sell-container {
+  width: 60%;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+.sell-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.sell-form .form-group {
+  margin-bottom: 25px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.image-upload-box {
+  border: 1px dashed #ccc;
+  padding: 30px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.image-input {
+  display: none;
+}
+
+.image-placeholder {
+  margin: 0 auto;
+  color: #e53935;
+  border: solid 1px;
+  border-radius: 5px;
+  width: 50%;
+}
+
+.section-title {
+  font-size: 18px;
+  margin: 30px 0 15px;
+}
+
+.category-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.category-tag {
+  border: 1px solid #e53935;
+  border-radius: 20px;
+  padding: 5px 12px;
+  color: #e53935;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.category-tag input {
+  display: none;
+}
+
+select, input[type="text"], input[type="number"], textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.price-box {
+  display: flex;
+  align-items: center;
+}
+
+.price-box span {
+  margin-right: 5px;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 15px;
+  background-color: #e53935;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}

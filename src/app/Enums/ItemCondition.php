@@ -19,18 +19,19 @@ class ItemCondition
             ];
         }
 
-        public static function labels(string $value): string
+        public static function allLabels(): array
         {
-            $labels = [
+            return [
                 self::GOOD => '良好',
-                self::OK => '普通',
-                self::FAIR => 'やや悪い',
-                self::POOR => '悪い',
+                self::OK => '目立った傷や汚れなし',
+                self::FAIR => 'やや傷や汚れあり',
+                self::POOR => '状態が悪い',
             ];
-
-            return $labels[$value] ?? '';
         }
 
-
+        public static function label(?string $value): string
+        {
+            return self::alllabels()[$value] ?? '';
+        }
 }
 

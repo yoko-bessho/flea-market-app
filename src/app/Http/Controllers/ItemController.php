@@ -16,11 +16,6 @@ use Symfony\Component\CssSelector\Node\FunctionNode;
 
 class ItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
 
     public function index(Request $request)
     {
@@ -44,14 +39,14 @@ class ItemController extends Controller
 
 
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        //
+        $user = Auth::user();
+        $categories = Category::all();
+        $conditionlabels = ItemCondition::alllabels();
+
+        return view('sell', compact('user', 'categories', 'conditionlabels'));
     }
 
     /**
@@ -75,7 +70,7 @@ class ItemController extends Controller
     {
         $item = Item::with('categories', 'likes', 'commentingUsers')->find($id);
         $commenters = $item->commentingUsers;
-        $conditionlabels = \App\Enums\ItemCondition::labels($item->condition);
+        $conditionlabels = \App\Enums\ItemCondition::allLabels();
 
         return view('item-detail', compact('item', 'commenters', 'conditionlabels'));
     }
