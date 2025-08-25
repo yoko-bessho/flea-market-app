@@ -46,15 +46,20 @@
 <div class="sell-container">
     <h2 class="sell-title">商品の出品</h2>
 
-    <form action="" method="POST" enctype="multipart/form-data" class="sell-form">
+    <form action="/sell" method="POST" enctype="multipart/form-data" class="sell-form">
         @csrf
 
         <div class="form-group">
-            <label for="image">商品画像</label>
+            <label for="image">商品画像
             <div class="image-upload-box">
-                <input type="file" name="image" id="image" class="image-input">
+                <input type="file"
+                name="image"
+                id="image"
+                accept="image/*"
+                class="image-input">
                 <p class="image-placeholder">画像を選択する</p>
             </div>
+            </label>
             @error('image')
                 <p class="error">{{ $message }}</p>
             @enderror
@@ -63,12 +68,14 @@
         <h3 class="section-title">商品の詳細</h3>
 
         <div class="form-group">
-            <label>カテゴリー</label>
+            <label for="category">カテゴリー</label>
             <div class="category-list">
                 @foreach ($categories as $category)
                     <label class="category-tag">
-                        <input type="checkbox" name="category_id[]" value="{{ old($category->id) == $category->id ? 'checked' : '' }}">
-                        {{ $category->name }}
+                        <input type="checkbox" name="category_id[]"
+                        id="category_{{ $category->id }}"
+                        value="{{ ($category->id) }}" {{ in_array($category->id, old('category_id', [])) ? 'checked' : '' }}>
+                        <span>{{ $category->name }}</span>
                     </label>
                 @endforeach
             </div>
@@ -82,7 +89,7 @@
             <select name="condition" id="condition">
                 <option value="">選択してください</option>
                 @foreach($conditionlabels as $value => $label)
-                <option value="$label">{{ $label }}</option>
+                <option value="{{ $value }}" {{ old('condition') == $value ? 'selected' : ''}}>{{ $label }}</option>
                 @endforeach
             </select>
             @error('condition')
@@ -114,7 +121,7 @@
             <label for="price">販売価格</label>
             <div class="price-box">
                 <span>¥</span>
-                <input type="number" name="price" id="price" value="{{ old('price') }}">
+                <input type="number" step="1" name="price" id="price" value="{{ old('price') }}">
             </div>
             @error('price')
                 <p class="error">{{ $message }}</p>

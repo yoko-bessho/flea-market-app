@@ -52,7 +52,8 @@ label {
   gap: 10px;
 }
 
-.category-tag {
+.category-tag span {
+  display: inline-block;
   border: 1px solid #e53935;
   border-radius: 20px;
   padding: 5px 12px;
@@ -61,8 +62,14 @@ label {
   font-size: 14px;
 }
 
-.category-tag input {
+.category-tag input[type="checkbox"] {
   display: none;
+}
+
+.category-tag input[type="checkbox"]:checked + span {
+  background-color: #e53935;
+  color: white;
+
 }
 
 select, input[type="text"], input[type="number"], textarea {

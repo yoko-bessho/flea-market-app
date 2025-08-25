@@ -49,15 +49,21 @@ class ItemController extends Controller
         return view('sell', compact('user', 'categories', 'conditionlabels'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+        $imagePath = $request->file('image')->store('item_images', 'public');
+
+        $itemData = $request->only(['title', 'description', 'brand', 'condition', 'price']);
+        $itemData['user_id'] = Auth::id();
+        $itemData['image_path'] = $imagePath;
+        $itemData['is_sold'] = false;
+
+        $item = Item::create($itemData);
+        $item->categories()->sync($request->input('category_id'));
+
+        return redirect()->route('mypage', ['page' => 'sell']);
+
     }
 
     /**
