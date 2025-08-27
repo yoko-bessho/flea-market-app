@@ -14,7 +14,7 @@
     <header class="header">
         <div class="header__inner">
             <div class="header-utilities">
-            <span class="header__logo">COACHTECH</span>
+            <div class="header__logo"><img src="{{ asset('images/logo.svg') }}" alt="logo"></div>
             @yield('header')
             </div>
         </div>
