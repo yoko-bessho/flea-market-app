@@ -70,7 +70,7 @@
             <div class="item-list">
                 @forelse ($mylistItems as $item)
                 <div class="item-card">
-                    <a href="item-detail/{{ $item->id }}" class="item-link">
+                    <a href="{{ route('item.detail', ['item_id' => $item->id]) }}" class="item-link">
                     <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}">
                     </a>
                     <h4>{{ $item->title }}</h4>

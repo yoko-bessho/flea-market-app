@@ -19,10 +19,7 @@
   object-fit: cover;
   border-radius: 5px;
 }
-.soldout {
-  position: absolute;
-  top: 50%;
-  left: 30%;
+.item--soldout {
   color: red;
   font-size: 50px;
   font-weight: bold;
@@ -110,19 +107,22 @@
 .item-infomation {
   margin-bottom: 40px;
 }
-
-tr {
+.item-row {
+  width: 100%;
   text-align: left;
   margin: 5px 0;
 }
-tr:first-of-type {
-  display: inline-block;
-}
+
 .item-category span {
+  display: inline-block;
   margin-left: 20px;
   padding: 3px 5px;
   border-radius: 12px;
   background-color: rgb(188, 188, 188);
+  font-size: 12px;
+}
+.item-condition {
+  padding-left: 30px;
 }
 .form__button-submit {
   margin-top: 10px;

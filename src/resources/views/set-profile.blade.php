@@ -25,6 +25,7 @@
                 <div class="profile-placeholder"></div>
             @endif
                 <label class="upload-label" for="profile_image">画像を選択する</label>
+                <div id="list"></div>
                 <input
                 type="file"
                 name="profile_image" id="profile_image"
@@ -39,6 +40,26 @@
             </div>
         </div>
 
+        <script>
+            document.getElementById('profile_image').onchange = function(event){
+
+                var file = event.target.files[0];
+                if(!file) return;
+
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+
+                reader.onload = function(e) {
+                document.getElementById('list').innerHTML = '';
+              
+                var img = document.createElement('img');
+                img.className = 'reader_image';
+                img.src = e.target.result;
+
+                document.getElementById('list').appendChild(img);
+                }
+            };
+        </script>
 
         <div class="form__group">
             <div class="form__group-title">ユーザー名</div>

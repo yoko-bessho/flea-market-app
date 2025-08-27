@@ -52,6 +52,7 @@
         <div class="form-group">
             <label for="image">商品画像
             <div class="image-upload-box">
+                <div id="list" class="image_output"></div>
                 <input type="file"
                 name="image"
                 id="image"
@@ -64,6 +65,29 @@
                 <p class="error">{{ $message }}</p>
             @enderror
         </div>
+
+        <script>
+            document.getElementById('image').onchange = function(event){
+
+                var file = event.target.files[0];
+                if(!file) return;
+
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+
+                reader.onload = function(e) {
+                document.getElementById('list').innerHTML = '';
+              
+                var img = document.createElement('img');
+                img.className = 'reader_image';
+                img.src = e.target.result;
+
+                document.getElementById('list').appendChild(img);
+                }
+            };
+        </script>
+        
+        
 
         <h3 class="section-title">商品の詳細</h3>
 

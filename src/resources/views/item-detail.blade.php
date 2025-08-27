@@ -48,7 +48,7 @@
             <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->title }}">
         </div>
         @if ($item->is_sold)
-        <p class="soldout">sold out</p>
+        <p class="item--soldout">sold out</p>
         @endif
     </div>
 
@@ -81,17 +81,17 @@
         </div>
         <h2 class="title">商品の情報</h2>
         <table class="item-infomation">
-            <tr>
-                <th class="title-header">カテゴリー</th>
+            <tr class="item-row">
+                <th>カテゴリー</th>
                 <td class="item-category">
                     @foreach ($item->categories as $category)
                         <span>{{ $category->name }}</span>
                     @endforeach
                 </td>
             </tr>
-            <tr>
-                <th class="item-condition">商品の状態</th>
-                <td>{{ \App\Enums\ItemCondition::label($item->condition) }}</td>
+            <tr class="item-row">
+                <th>商品の状態</th>
+                <td class="item-condition">{{ \App\Enums\ItemCondition::label($item->condition) }}</td>
             </tr>
         </table>
         <div class="cmment-area">
