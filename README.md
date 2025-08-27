@@ -7,18 +7,15 @@
 2.  DockerDesktopアプリ立ち上げる. 
 3.  `docker compose up -d --build`
 
-   MacのM1・M2チップのPCの場合、no matching manifest for linux/arm64/v8 in the manifest list entriesのメッセージが表示されビルドができないことがあります。 エラーが発生する場合は、docker-compose.ymlファイルの「mysql」と「myadmin」内に「platform」の項目を追加で記載してください
+   MacのM1・M2チップのPCの場合、no matching manifest for linux/arm64/v8 in the manifest list entriesのメッセージが表示されビルドができないことがあります。 エラーが発生する場合は、docker-compose.ymlファイルの「mysql」内に「platform」の項目を追加で記載してください
 
    ```
    mysql:
-   platform: linux/x86_64   //(この文追加)
-   image: mysql:8.0.26
+      image: mysql:8.0.26
+      platform: linux/x86_64   //(この文追加)
+
    ```
-   ```
-   phpmyadmin:
-   platform: linux/x86_64   //(この文追加)
-   image: phpmyadmin/phpmyadmin
-   ```
+
 
 ### Laravel環境構築
 1.  `docker-compose exec php bash`
@@ -54,70 +51,114 @@
 　・ Laravel Framework 8.83.8. 
 　・ mysql  Ver 15.1.
 　・ 認証：mailtrap
+　・ 決済：stripe version 1.29.0
 
 
-### テーブル設計
-| No. | テーブル名       | カラム名          | 型               | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
-|-----|-------------|---------------|-----------------|-------------|------------|----------|-------------|
-| 1   | users       |               |                 |             |            |          |             |
-|     |             | id            | unsigned bigint | ○           |            | ○        |             |
-|     |             | name          | varchar(255)    |             | ○          | ○        |             |
-|     |             | email         | varchar(255)    |             | ○          | ○        |             |
-|     |             | password      | varchar(255)    |             | ○          | ○        |             |
-|     |             | profile_image | varchar(255)    |             |            |          |             |
-|     |             | postal_code   | char(7)         |             |            |          |             |
-|     |             | address       | varchar(255)    |             |            |          |             |
-|     |             | building      | varchar(255)    |             |            |          |             |
-|     |             | created_at    | timestamp       |             |            |          |             |
-|     |             | updated_at    | timestamp       |             |            |          |             |
-|     |             | deleted_at    | timestamp       |
-| 2 | items |             |                      |   |  |   |                |
-|   |       | id          | unsigned bigint      | ○ |  | ○ |                |
-|   |       | user_id     | unsigned bigint      |   |  | ○ | users(id)      |
-|   |       | title       | varchar(255)         |   |  | ○ |                |
-|   |       | description | text                 |   |  | ○ |                |
-|   |       | price       | unsignedsmallInteger |   |  | ○ |                |
-|   |       | category_id | unsigned bigint      |   |  | ○ | categories(id) |
-|   |       | is_sold     | boolean              |   |  | ○ |                |
-|   |       | image_path  | varchar(255)         |   |  | ○ |                |
-|   |       | created_at  | timestamp            |   |  |   |                |
-|   |       | updated_at  | timestamp            |   |  |   |                |
-|   |       | deleted_at  | timestamp            |   |  |   |                |
-|   |       | brand       | varchar(255)               |
-|   |       | condition       | varchar(255)               |
-| 3 | categories |            |                 |   |   |   |  |
-|   |            | id         | unsigned bigint | ○ |   | ○ |  |
-|   |            | name       | varchar(255)    |   | ○ | ○ |  |
-|   |            | created_at | timestamp       |
-| 4 | item_categories |             |                 |   |  |   |                |
-|   |                 | id          | unsigned bigint | ○ |  | ○ |                |
-|   |                 | item_id     | unsigned bigint |   |  | ○ | items(id)      |
-|   |                 | category_id | unsigned bigint |   |  | ○ | categories(id) |
-| 5 | likes |            |                 |   |                           |   |           |
-|   |       | id         | unsigned bigint | ○ |                           | ○ |           |
-|   |       | user_id    | unsigned bigint |   | UNIQUE (user_id, item_id) | ○ | users(id) |
-|   |       | item_id    | unsigned bigint |   | UNIQUE (user_id, item_id) | ○ | items(id) |
-|   |       | created_at | timestamp       |
-| 6 | comments |            |                 |   |  |   |           |
-|   |          | id         | unsigned bigint | ○ |  | ○ |           |
-|   |          | user_id    | unsigned bigint |   |  | ○ | users(id) |
-|   |          | item_id    | unsigned bigint |   |  | ○ | items(id) |
-|   |          | text       | text            |   |  | ○ |           |
-|   |          | created_at | timestamp       |   |  |   |           |
-|   |          | deleted_at | timestamp       |
-| 7 | purchases |                      |                            |   |  |   |           |
-|   |           | id                   | unsigned bigint            | ○ |  | ○ |           |
-|   |           | item_id              | unsigned bigint            |   |  | ○ | items(id) |
-|   |           | buyer_id             | unsigned bigint            |   |  | ○ | users(id) |
-|   |           | shipping_postal_code | char(7)                    |   |  | ○ |           |
-|   |           | shipping_address     | varchar(255)               |   |  | ○ |           |
-|   |           | shipping_building    | varchar(255)               |   |  |   |           |
-|   |           | payment_method       | varchar(20)+enum(laravel側) |   |  | ○ |           |
-|   |           | payment_status       | varchar(20)+enum(laravel側) |   |  | ○ |           |
-|   |           | paid_at              | timestamp                  |   |  |   |           |
-|   |           | order_status         | varchar(20)+enum(laravel側) |   |  | ○ |           |
-|   |           | created_at           | timestamp                  |   |  |   |           |
-|   |           | updated_at           | timestamp                  |
+
+##  テーブル設計
+- [users](#1-users)
+- [items](#2-items)
+- [categories](#3-categories)
+- [item_categories](#4-item_categories)
+- [likes](#5-likes)
+- [comments](#6-comments)
+- [purchases](#7-purchases)
+
+---
+
+### 1. users
+| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+|----------|----|-------------|------------|----------|-------------|
+| id | unsigned bigint | ○ | | ○ | |
+| uuid | varchar(255) | | ○ | ○ | |
+| name | varchar(255) | | ○ | ○ | |
+| email | varchar(255) | | ○ | ○ | |
+| password | varchar(255) | | | | |
+| profile_image | varchar(255) | | | | |
+| postal_code | char(7) | | | | |
+| address | varchar(255) | | | | |
+| building | varchar(255) | | | | |
+| email_varified_at | timestamp | | | | |
+| created_at | timestamp | | | | |
+| deleted_at | timestamp | | | | |
+
+---
+
+### 2. items
+| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+|----------|----|-------------|------------|----------|-------------|
+| id | unsigned bigint | ○ | | ○ | |
+| user_id | unsigned bigint | | | ○ | users(id) |
+| title | varchar(255) | | | ○ | |
+| description | text | | | ○ | |
+| price | unsigned smallint | | | ○ | |
+| brand | varchar(255) | | | ○ | categories(id) |
+| is_sold | boolean | | | ○ | |
+| image_path | varchar(255) | | | ○ | |
+| condition | varchar(255) | | | | |
+| created_at | timestamp | | | | |
+| deleted_at | timestamp | | | | |
+
+---
+
+### 3. categories
+| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+|----------|----|-------------|------------|----------|-------------|
+| id | unsigned bigint | ○ | | ○ | |
+| name | varchar(255) | | ○ | ○ | |
+| created_at | timestamp | | | | |
+
+---
+
+### 4. item_categories
+| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+|----------|----|-------------|------------|----------|-------------|
+| id | unsigned bigint | ○ | | ○ | |
+| item_id | unsigned bigint | | | ○ | items(id) |
+| category_id | unsigned bigint | | | ○ | categories(id) |
+
+---
+
+### 5. likes
+| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+|----------|----|-------------|------------|----------|-------------|
+| id | unsigned bigint | ○ | | ○ | |
+| user_id | unsigned bigint | | UNIQUE(user_id,item_id) | ○ | users(id) |
+| item_id | unsigned bigint | | UNIQUE(user_id,item_id) | ○ | items(id) |
+| created_at | timestamp | | | | |
+
+---
+
+### 6. comments
+| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+|----------|----|-------------|------------|----------|-------------|
+| id | unsigned bigint | ○ | | ○ | |
+| user_id | unsigned bigint | | | ○ | users(id) |
+| item_id | unsigned bigint | | | ○ | items(id) |
+| text | text | | | ○ | |
+| created_at | timestamp | | | | |
+| deleted_at | timestamp | | | | |
+
+---
+
+### 7. purchases
+| カラム名 | 型 | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+|----------|----|-------------|------------|----------|-------------|
+| id | unsigned bigint | ○ | | ○ | |
+| item_id | unsigned bigint | | | ○ | items(id) |
+| buyer_id | unsigned bigint | | | ○ | users(id) |
+| shipping_postal_code | char(7) | | | ○ | |
+| shipping_address | varchar(255) | | | ○ | |
+| shipping_building | varchar(255) | | | | |
+| payment_method | varchar(20) | | | ○ | |
+| payment_status | varchar(20) | | | ○ | |
+| paid_at | timestamp | | | | |
+| checkout_session_id | string | | | ○ | |
+| created_at | timestamp | | | | |
+| updated_at | timestamp | | | | |
+
+
+
 ### ER図
 
 ![ER図](er.svg)
