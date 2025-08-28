@@ -15,4 +15,4 @@ use App\Http\Controllers\PurchaseControllerController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('/stripe_webhook', [PurchaseController::class, 'handel']);
+Route::post('/stripe/webhook', [PurchaseController::class, 'handle']);

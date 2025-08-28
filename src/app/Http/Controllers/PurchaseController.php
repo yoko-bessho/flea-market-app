@@ -112,9 +112,9 @@ class PurchaseController extends Controller
 
             $purchase = Purchase::where('checkout_session_id', $session->id)->first();
 
-            if ($purchase && $purchase->payment_status !== 'seccessed') {
+            if ($purchase && $purchase->payment_status !== 'succeeded') {
                 $purchase->update([
-                    'payment_status' => 'successed',
+                    'payment_status' => 'success',
                     'paid_at' => now(),
                 ]);
 
