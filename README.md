@@ -66,14 +66,14 @@ composer require stripe/stripe-php
 brew install stripe/stripe-cli/stripe
 ```
 
-ダッシュボードより公開可能 key とシークレット key を、CLI キーをコピーし、.env へ記述する
+ダッシュボードより公開可能キーとシークレットキーをコピーし、.env へ記述する
 
 ```
 STRIPE_PUBLIC_KEY=公開可能キー
 STRIPE_SECRET_KEY=シークレットキー
 ```
 
-webhook 受け取りルート設定
+webhook 受け取りルート設定(dockerテスト環境用)
 
 ```
 stripe listen --forward-to http://localhost/api/stripe/webhook
@@ -81,7 +81,7 @@ stripe listen --forward-to http://localhost/api/stripe/webhook
 
 実行時に出る
 
-> Ready! You are using Stripe API Version [2025-07-30.basil]. Your webhook signing secret is whsec_xxxxx を
+> Ready! You are using Stripe API Version [2025-07-30.basil]. Your webhook signing secret is whsec_xxxxx のCLIキーを
 > .env の STRIPE_WEBHOOK_SECRET に設定する
 
 ```
