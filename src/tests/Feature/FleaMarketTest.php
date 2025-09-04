@@ -225,4 +225,18 @@ class FleaMarketTest extends TestCase
 
         $this->assertAuthenticatedAs($user);
     }
+
+
+// ログアウト機能
+    public function test_logout_success()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user);
+
+        $response = $this->post('/logout');
+
+        $this->assertGuest();
+        $response->assertRedirect('/');
+    }
 }
