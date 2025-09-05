@@ -213,4 +213,8 @@ STRIPE_WEBHOOK_SECRET=whsec_xxxxx
 ### URL
 
 ・ 開発環境：http://localhost/
-　・ phpMyadmin：http://localhost:8080/
+・ phpMyadmin：http://localhost:8080/
+
+### ログイン可能なテストユーザー
+email: test@example.com
+password: password
