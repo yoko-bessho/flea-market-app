@@ -298,19 +298,6 @@ class FleaMarketTest extends TestCase
 // 商品一覧取得
     public function test_get_items_success()
     {
-        // $user = User::factory()->create();
-        // $category = Category::create(['name' => 'ファッション']);
-        // $items = Item::create([
-        //     'user_id' => $user->id,
-        //     'title' => '腕時計',
-        //     'price' => '15000',
-        //     'brand' => 'Rolax',
-        //     'description' => 'スタイリッシュなデザインのメンズ時計',
-        //     'image_path' => 'item_images/Armani_Mens_Clock.jpg',
-        //     'is_sold' => false,
-        //     'categories' => $category->id,
-        //     'condition' => ItemCondition::GOOD,
-        // ]);
         $items = $this->createTestItems(3, null, false, false);
 
         $response = $this->get('/');
@@ -365,6 +352,73 @@ class FleaMarketTest extends TestCase
         foreach ($otherItems as $item) {
             $this->assertTrue($viewItems->contains('id', $item->id));
         }
+    }
+
+
+// マイリスト一覧取得
+    public function test_get_mylist_items_success()
+    {
+        $this->actingAs($this->user);
+
+        $otherUser = User::factory()->create();
+        $items = $this->createTestItems(3, $otherUser, false, false);
+
+        $items->each(function ($item) {
+            $item->likes()->attach($this->user->id);
+        });
+
+        $response = $this->get('/?tab=mylist');
+        $response->assertStatus(200);
+
+        $viewItems = $response->viewData('mylistItems');
+
+        $this->assertEquals(
+            $items->pluck('id')->sort()->values()->toArray(),
+            $viewItems->pluck('id')->sort()->values()->toArray()
+        );
+    }
+
+    public function test_get_mylist_items_soldOut_label()
+    {
+        $this->actingAs($this->user);
+
+        $otherUser = User::factory()->create();
+        $items = $this->createTestItems(3, $otherUser, false, false);
+
+        $items->each(function ($item) {
+            $item->likes()->attach($this->user->id);
+        });
+
+        $items[0]->update(['is_sold' => true]);
+        $items[1]->update(['is_sold' => true]);
+        $items[2]->update(['is_sold' => false]);
+
+        $response = $this->get('/?tab=mylist');
+        $response->assertStatus(200);
+
+        $this->assertStringContainsString('sold out', $response->getContent());
+
+        $this->assertSame(
+            2, substr_count($response->getContent(), 'sold out')
+        );
+    }
+
+    public function test_guest_cannot_see_mylist_items()
+    {
+        $otherUser = User::factory()->create();
+        $items = $this->createTestItems(3, $otherUser, false, false);
+
+        $items[0]->update(['is_sold' => true]);
+        $items[1]->update(['is_sold' => true]);
+        $items[2]->update(['is_sold' => false]);
+
+
+        $response = $this->get('/?tab=mylist');
+        $response->assertStatus(200);
+
+        $response->assertDontSee($items[0]->title);
+        $response->assertDontSee($items[1]->title);
+        $response->assertDontSee($items[2]->title);
     }
 
 }
