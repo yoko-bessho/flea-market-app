@@ -93,6 +93,7 @@ class FleaMarketTest extends TestCase
         ]);
     }
 
+
     public function test_register_userEmail_validationMessage()
     {
         app()->setLocale('ja');
@@ -110,6 +111,7 @@ class FleaMarketTest extends TestCase
         $response->assertSessionHasErrors(['email' => 'メールアドレスを入力してください。',
         ]);
     }
+
 
     public function test_register_userPassword_validationMessage()
     {
@@ -129,6 +131,7 @@ class FleaMarketTest extends TestCase
         ]);
     }
 
+
     public function test_register_userPassword_too_short_validationMessage()
     {
         app()->setLocale('ja');
@@ -147,6 +150,7 @@ class FleaMarketTest extends TestCase
         ]);
     }
 
+
     public function test_register_userPasswordConfirmation_validationMessage()
     {
         app()->setLocale('ja');
@@ -164,6 +168,7 @@ class FleaMarketTest extends TestCase
         $response->assertSessionHasErrors(['password' => 'パスワードと一致しません。',
         ]);
     }
+
 
     public function test_register_user_success_redirects_to_profilePage()
     {
@@ -210,6 +215,7 @@ class FleaMarketTest extends TestCase
         ]);
     }
 
+
     public function test_login_userPassword_validationMessage()
     {
         app()->setLocale('ja');
@@ -226,6 +232,7 @@ class FleaMarketTest extends TestCase
         ]);
     }
 
+
     public function test_login_userEmail_wrong_validationMessage()
     {
         app()->setLocale('ja');
@@ -241,6 +248,7 @@ class FleaMarketTest extends TestCase
         $response->assertSessionHasErrors(['email' => 'ログイン情報が登録されていません。',
         ]);
     }
+
 
     public function test_login_userPassword_wrong_validationMessage()
     {
@@ -262,6 +270,7 @@ class FleaMarketTest extends TestCase
         $response->assertSessionHasErrors(['email' => 'ログイン情報が登録されていません。',
         ]);
     }
+
 
     public function test_login_success()
     {
@@ -311,6 +320,7 @@ class FleaMarketTest extends TestCase
         );
     }
 
+
     public function test_get_items_soldOut_label()
     {
         $items = Item::create([
@@ -331,6 +341,7 @@ class FleaMarketTest extends TestCase
 
         $response->assertSee('sold out');
     }
+
 
     public function test_get_items_authUser_view()
     {
@@ -378,6 +389,7 @@ class FleaMarketTest extends TestCase
         );
     }
 
+
     public function test_get_mylist_items_soldOut_label()
     {
         $this->actingAs($this->user);
@@ -420,5 +432,60 @@ class FleaMarketTest extends TestCase
         $response->assertDontSee($items[1]->title);
         $response->assertDontSee($items[2]->title);
     }
+
+
+// 商品検索機能
+    public function test_search_items_by_partial_name()
+    {
+        $items = $this->createTestItems(3, null, false, false);
+
+        $items[0]->update(['title' => 'HDD']);
+        $items[1]->update(['title' => '玉ねぎ３束']);
+        $items[2]->update(['title' => '腕時計']);
+
+        $response = $this->get(route('items.index', ['keyword' => '時計']));
+        $response->assertStatus(200);
+
+        $response->assertDontSee($items[0]->title);
+        $response->assertDontSee($items[1]->title);
+        $response->assertSee($items[2]->title);
+    }
+
+
+    public function test_search_keyword_is_preserved_in_mylist_tab()
+    {
+    $this->actingAs($this->user);
+    
+    $otherUser = User::factory()->create();
+
+    $mylistItem = $this->createTestItems(1, $otherUser, false, false)->first();
+    $mylistItem->update(['title' => '腕時計']);
+    $mylistItem->likes()->attach($this->user->id);
+
+    $otherItem = $this->createTestItems(1, $otherUser, false, false)->first();
+    $otherItem->update(['title' => 'スニーカー']);
+
+    $response = $this->get(route('items.index', [
+        'keyword' => '時計',
+        'tab' => 'recommended',
+    ]));
+
+    $response->assertStatus(200);
+    $response->assertSee('value="時計"', false);
+
+    $response->assertSee($mylistItem->title);
+    $response->assertDontSee($otherItem->title);
+
+    $response = $this->get(route('items.index', [
+        'keyword' => '時計',
+        'tab' => 'mylist',
+    ]));
+
+    $response->assertStatus(200);
+    $response->assertSee('value="時計"', false);
+
+    $response->assertSee($mylistItem->title);
+    $response->assertDontSee($otherItem->title);
+}
 
 }
