@@ -156,4 +156,20 @@ class LoginTest extends TestCase
         ]);
         $this->assertAuthenticatedAs($user);
     }
+
+
+
+// ログアウト機能
+    public function test_logout_success()
+    {
+        $this->user = User::factory()->create();
+
+        $this->actingAs($this->user);
+
+        $response = $this->post('/logout');
+
+        $this->assertGuest();
+        $response->assertRedirect('/');
+    }
+
 }
