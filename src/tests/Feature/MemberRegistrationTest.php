@@ -9,9 +9,6 @@ use App\Models\User;
 use App\Models\Item;
 use App\Enums\ItemCondition;
 use App\Models\Category;
-use Carbon\Factory;
-use Database\Seeders\ItemsTableSeeder;
-use Database\Seeders\CategoriesTableSeeder;
 use Illuminate\Support\Facades\Hash;
 
 
