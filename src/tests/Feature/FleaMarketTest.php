@@ -651,4 +651,44 @@ class FleaMarketTest extends TestCase
         ]);
     }
 
+    public function test_comment_validation_error_when_empty()
+    {
+        $this->actingAs($this->user);
+
+        $item = $this->createTestItems(1, $this->user, false, false)->first();
+
+        $response = $this->from(route('item.detail', $item->id))
+                        ->post(route('item.comment', $item->id), [
+                            'text' => '',
+                        ]);
+
+        $response->assertRedirect(route('item.detail', $item->id));
+
+        $response->assertSessionHasErrors([
+            'text' => 'コメントを入力してください。',
+        ]);
+    }
+
+
+    public function test_comment_validation_error_when_too_long()
+    {
+        $this->actingAs($this->user);
+
+        $item = $this->createTestItems(1, $this->user, false, false)->first();
+
+        $longText = str_repeat('あ', 256);
+
+        $response = $this->from(route('item.detail', $item->id))
+                        ->post(route('item.comment', $item->id), [
+                            'text' => $longText,
+                        ]);
+
+        $response->assertRedirect(route('item.detail', $item->id));
+
+        $response->assertSessionHasErrors([
+            'text' => 'コメントは255文字以内で入力してください',
+        ]);
+    }
+
+
 }
