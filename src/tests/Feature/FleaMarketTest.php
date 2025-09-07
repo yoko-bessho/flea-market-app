@@ -486,6 +486,133 @@ class FleaMarketTest extends TestCase
 
     $response->assertSee($mylistItem->title);
     $response->assertDontSee($otherItem->title);
-}
+    }
+
+
+// 商品詳細情報取得
+    public function test_item_detail_page_displays_item_info()
+    {
+        $otherUser = User::factory()->create();
+        $item = $this->createTestItems(1, $otherUser, true, true)->first();
+
+        $response = $this->get("/item/{$item->id}");
+
+        $response->assertStatus(200);
+
+        $response->assertSee($item->title);
+        $response->assertSee($item->price);
+        $response->assertSee($item->brand);
+        $response->assertSee($item->description);
+        $response->assertSee(ItemCondition::label($item->condition));
+
+        $response->assertSee($this->category->name);
+        $response->assertSee($item->likes()->count());
+        $response->assertSee($item->commentingUsers()->count());
+
+        $item->commentingUsers->each(function ($user) use ($response) {
+        $pivotText = $user->pivot->text;
+        $response->assertSee($user->name);
+        $response->assertSee($pivotText);
+        });
+    }
+
+    public function test_item_detail_page_displays_multiple_categoryies()
+    {
+        $otherUser = User::factory()->create();
+
+        $category1 = Category::create(['name' => '子供']);
+        $category2 = Category::create(['name' => '家電']);
+        $category3 = Category::create(['name' => 'スポーツ']);
+
+        $item = $this->createTestItems(1, $otherUser, true, true)->first();
+
+        $item->categories()->attach([$category1->id, $category2->id, $category3->id]);
+
+        $response = $this->get("/item/{$item->id}");
+        $response->assertStatus(200);
+
+        $response->assertSee($category1->name);
+        $response->assertSee($category2->name);
+        $response->assertSee($category3->name);
+    }
+
+
+    // いいね機能
+    public function test_user_can_like_item_and_like_count_increases()
+    {
+        $this->actingAs($this->user);
+        $otherUser = User::factory()->create();
+
+        $item = $this->createTestItems(1, $otherUser, false, false)->first();
+
+        $beforeCount = $item->likes()->count();
+        $this->assertEquals(0, $beforeCount);
+
+        $response = $this->get("/item/{$item->id}");
+        $response->assertStatus(200);
+
+        $response = $this->post(route('item.like', $item));
+
+        $item->refresh();
+
+        $afterCount = $item->likes()->count();
+
+        $this->assertEquals($beforeCount + 1, $afterCount);
+
+        $response = $this->get("/item/{$item->id}");
+        $response->assertSee((string)$afterCount);
+    }
+
+    public function test_like_icom_change_color()
+    {
+        $this->actingAs($this->user);
+        $otherUser = User::factory()->create();
+
+        $item = $this->createTestItems(1, $otherUser, false, false)->first();
+
+        $item->likes()->attach($this->user->id);
+
+        $response = $this->get("/item/{$item->id}");
+        $response->assertStatus(200);
+
+        $response->assertSee('class="button-like button-unlike"', false);
+    }
+
+    public function test_user_can_unlike_item_and_count_decreases()
+    {
+        $this->actingAs($this->user);
+        $otherUser = User::factory()->create();
+
+        $item = $this->createTestItems(1, $otherUser, false, false)->first();
+        
+        $this->user->mylistItems()->attach($item->id);
+
+        $this->assertDatabaseHas('likes', [
+        'user_id' => $this->user->id,
+        'item_id' => $item->id,
+        ]);
+        $beforeCount = $item->likes()->count();
+
+        $response = $this->get("/item/{$item->id}");
+        $response->assertStatus(200);
+
+        $response = $this->post("/item/{$item->id}/like");
+        $response->assertRedirect("/item/{$item->id}");
+
+        $this->assertDatabaseMissing('likes', [
+            'user_id' => $this->user->id,
+            'item_id' => $item->id,
+        ]);
+
+        $item->refresh();
+        $afterCount = $item->likes()->count();
+
+        $this->assertEquals($beforeCount - 1, $afterCount);
+
+        $response = $this->get("/item/{$item->id}");
+        $response->assertStatus(200);
+
+        $response->assertSee((string)$afterCount);
+    }
 
 }
