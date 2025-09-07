@@ -90,14 +90,14 @@ class ItemController extends Controller
         }else {
             $user->mylistItems()->attach($item->id);
         }
-        return back();
+        return redirect()->route('item.detail', $item->id);
     }
 
     public function comment(CommentRequest $request, Item $item)
     {
         $user = auth::user();
         $user->commentedItems()->attach($item->id, $request->only('text'));
-        return back();
+        return redirect()->route('item.detail', $item->id);
     }
     /**
      * Show the form for editing the specified resource.

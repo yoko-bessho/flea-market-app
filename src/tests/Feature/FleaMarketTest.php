@@ -615,4 +615,40 @@ class FleaMarketTest extends TestCase
         $response->assertSee((string)$afterCount);
     }
 
+    // コメント送信機能
+    public function test_logged_in_user_can_post_comment()
+    {
+        $this->actingAs($this->user);
+
+        $item = $this->createTestItems(1, $this->user, false, false)->first();
+
+        $response = $this->post(route('item.comment', $item->id), [
+            'text' => 'テストコメント',
+        ]);
+
+        $response->assertRedirect("/item/{$item->id}");
+
+        $this->assertDatabaseHas('comments', [
+            'user_id' => $this->user->id,
+            'item_id' => $item->id,
+            'text'    => 'テストコメント',
+        ]);
+    }
+
+    public function test_guest_cannot_post_comment()
+    {
+        $item = $this->createTestItems(1, $this->user, false, false)->first();
+
+        $response = $this->post(route('item.comment', $item->id), [
+            'text' => 'ゲストのコメント',
+        ]);
+
+        $response->assertRedirect(route('login'));
+
+        $this->assertDatabaseMissing('comments', [
+            'item_id' => $item->id,
+            'text'    => 'ゲストのコメント',
+        ]);
+    }
+
 }
