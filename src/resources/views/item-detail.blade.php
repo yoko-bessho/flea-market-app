@@ -121,6 +121,12 @@
                 <h4 class="comment-header">商品へのコメント</h4>
                 <textarea name="text" id="field"></textarea>
                 <div id="charCount"></div>
+                <div class="form__error">
+                @error('text')
+                    <span class="error-message">{{ $message }}</span>
+                @enderror
+                </div>
+
                 <script>
                     const textarea = document.getElementById('field');
                     textarea.addEventListener('input', function() {

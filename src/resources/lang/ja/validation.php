@@ -159,5 +159,6 @@ return [
         'condition' => '商品の状態',
         'brand' => 'ブランド名',
         'category_id' => 'カテゴリー',
+        'text' => 'コメント',
     ],
 ];
