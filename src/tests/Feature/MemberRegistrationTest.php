@@ -167,7 +167,7 @@ class MemberRegistrationTest extends TestCase
     }
 
 
-    public function test_register_user_success_redirects_to_profilePage()
+    public function test_register_user_success_redirects_to_indexPage()
     {
         app()->setLocale('ja');
 
@@ -191,7 +191,7 @@ class MemberRegistrationTest extends TestCase
         $user = User::where('email', $email)->first();
         $this->assertTrue(Hash::check('password', $user->password));
 
-        $response->assertRedirect(route('setProfile'));
+        $response->assertRedirect(route('items.index'));
     }
 
 }

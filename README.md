@@ -19,10 +19,10 @@ mysql:
 
 ### Laravel 環境構築
 
-1.  `docker-compose exec php bash`
-2.  `composer install`
+1.  ```docker-compose exec php bash```
+2.  ```composer install```
 3.  「.env.example」ファイルをコピーして,「.env」へ名称変更
-    `cp .env.example .env`
+    ```cp .env.example .env```
 
 4.  .env に以下の環境変数を追加.
 
@@ -36,16 +36,16 @@ DB_PASSWORD=laravel_pass
 ```
 
 5. アプリケーションキーの作成.
-   `php artisan key:generate`
+   ```php artisan key:generate```
 
 6. マイグレーションの実行.
-   `php artisan migrate`
+   ```php artisan migrate```
 
 7. シーディングの実行.
-   `php artisan db:seed`
+   ```php artisan db:seed```
 
 8. シンボリックリンク作成.
-   `php artisan storage:link`
+   ```php artisan storage:link```
 
 9. mailtrap の設定
    Mysandbox を開き、php 一覧より laravel のバージョン選択後、環境変数とパスワードをコピーし、.env へ貼り付ける
@@ -61,7 +61,7 @@ DB_PASSWORD=laravel_pass
 ```
 composer require stripe/stripe-php
 ```
-
+phpから出て、
 ```
 brew install stripe/stripe-cli/stripe
 ```
@@ -87,6 +87,12 @@ stripe listen --forward-to http://localhost/api/stripe/webhook
 ```
 STRIPE_WEBHOOK_SECRET=whsec_xxxxx
 ```
+
+11. テスト用データベース作成
+```docker compose exec mysql bash```
+```mysql -u root -p```
+パスワードは、docker-compose.ymlファイルのMYSQL_ROOT_PASSWORD:に設定されているrootを入力する。
+```CREATE DATABASE demo_test;```
 
 ## 開発環境
 
