@@ -48,8 +48,8 @@ class ItemPurchaseTest extends TestCase
         $this->actingAs($this->buyer);
 
         $mockSession = new class {
-          public $id = 'test_session_id';
-          public $url = 'https://example.com/checkout';
+            public $id = 'test_session_id';
+            public $url = 'https://example.com/checkout';
         };
 
         $mockwrapper = $this->createMock(StripeSessionWrapper::class);
@@ -96,16 +96,16 @@ class ItemPurchaseTest extends TestCase
         ]);
 
         $response = $this->call(
-          'POST',
-          '/api/stripe/webhook',
-          [],
-          [],
-          [],
-          [
-              'CONTENT_TYPE' => 'application/json',
-              'HTTP_Stripe-Signature' => 'dummy_signature',
-          ],
-          $payload
+            'POST',
+            '/api/stripe/webhook',
+            [],
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => 'application/json',
+                'HTTP_Stripe-Signature' => 'dummy_signature',
+            ],
+            $payload
         );
 
         $response->assertNoContent();

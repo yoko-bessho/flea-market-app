@@ -9,10 +9,6 @@ use App\Models\User;
 use App\Models\Item;
 use App\Enums\ItemCondition;
 use App\Models\Category;
-use Carbon\Factory;
-use Database\Seeders\ItemsTableSeeder;
-use Database\Seeders\CategoriesTableSeeder;
-use Illuminate\Support\Facades\Hash;
 
 
 class MypageTest extends TestCase
@@ -81,12 +77,12 @@ class MypageTest extends TestCase
 
         $buyItem = $this->createTestItems(1, $otherUser, false, false)->first();
         $this->user->purchases()->create([
-          'item_id' => $buyItem->id,
-          'buyer_id' => $sellItem->id,
-          'shipping_postal_code' => '123-4567',
-          'shipping_address' => '東京都新宿区テスト1-2-3',
-          'payment_method' => 'card',
-          'payment_status' => 'success',
+            'item_id' => $buyItem->id,
+            'buyer_id' => $sellItem->id,
+            'shipping_postal_code' => '123-4567',
+            'shipping_address' => '東京都新宿区テスト1-2-3',
+            'payment_method' => 'card',
+            'payment_status' => 'success',
         ]);
 
         $otherUser->purchases()->create([
@@ -98,7 +94,7 @@ class MypageTest extends TestCase
             'payment_status' => 'success',
         ]);
 
-        
+
         $response = $this->get(route('mypage', ['page' => 'sell']));
         $response->assertStatus(200);
         $response->assertSee($this->user->name);
@@ -110,9 +106,6 @@ class MypageTest extends TestCase
         $response->assertSee($this->user->name);
         $response->assertSee($buyItem->title);
 
-
-}
-
-
+    }
 
 }

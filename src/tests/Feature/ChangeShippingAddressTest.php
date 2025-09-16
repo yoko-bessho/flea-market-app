@@ -91,8 +91,8 @@ class ChangeShippingAddressTest extends TestCase
 
 
         $mockSession = new class {
-          public $id = 'test_session_id';
-          public $url = 'https://example.com/checkout';
+            public $id = 'test_session_id';
+            public $url = 'https://example.com/checkout';
         };
 
         $mockwrapper = $this->createMock(StripeSessionWrapper::class);

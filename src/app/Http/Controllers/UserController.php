@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProfileRequest;
 use App\Models\User;
-use App\Models\Item;
-use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class UserController extends Controller
 {
