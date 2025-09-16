@@ -73,7 +73,7 @@ STRIPE_PUBLIC_KEY=公開可能キー
 STRIPE_SECRET_KEY=シークレットキー
 ```
 
-webhook 受け取りルート設定(dockerテスト環境用)
+webhook 受け取りルート設定(docker テスト環境用)
 
 ```
 stripe listen --forward-to http://localhost/api/stripe/webhook
@@ -81,20 +81,29 @@ stripe listen --forward-to http://localhost/api/stripe/webhook
 
 実行時に出る
 
-> Ready! You are using Stripe API Version [2025-07-30.basil]. Your webhook signing secret is whsec_xxxxx のCLIキーを
+> Ready! You are using Stripe API Version [2025-07-30.basil]. Your webhook signing secret is whsec_xxxxx の CLI キーを
 > .env の STRIPE_WEBHOOK_SECRET に設定する
 
 ```
 STRIPE_WEBHOOK_SECRET=whsec_xxxxx
 ```
 
-### 使用技術（実行環境）
+## 開発環境
 
-・ PHP 7.4.9.
-　・ Laravel Framework 8.83.8.
-　・ mysql Ver 15.1.
-　・ 認証：mailtrap
-　・ 決済：stripe version 1.29.0
+- 商品一覧画面: http://localhost/
+- phpMyadmin：http://localhost:8080/
+- ログイン可能なテストユーザー
+  - email: test@example.com
+  - password: password
+
+## 使用技術（実行環境）
+
+- PHP 8.0.30
+- Laravel Framework 8.83.8.
+- mysql Ver 15.1.
+- nginx/1.21.1
+- 認証：mailtrap
+- 決済：stripe version 1.29.0
 
 ## テーブル設計
 
@@ -116,7 +125,7 @@ STRIPE_WEBHOOK_SECRET=whsec_xxxxx
 | uuid              | varchar(255)    |             | ○          | ○        |             |
 | name              | varchar(255)    |             | ○          | ○        |             |
 | email             | varchar(255)    |             | ○          | ○        |             |
-| password          | varchar(255)    |             |            |          |             |
+| password          | varchar(255)    |             |            | ○        |             |
 | profile_image     | varchar(255)    |             |            |          |             |
 | postal_code       | char(7)         |             |            |          |             |
 | address           | varchar(255)    |             |            |          |             |
@@ -129,19 +138,19 @@ STRIPE_WEBHOOK_SECRET=whsec_xxxxx
 
 ### 2. items
 
-| カラム名    | 型                | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY    |
-| ----------- | ----------------- | ----------- | ---------- | -------- | -------------- |
-| id          | unsigned bigint   | ○           |            | ○        |                |
-| user_id     | unsigned bigint   |             |            | ○        | users(id)      |
-| title       | varchar(255)      |             |            | ○        |                |
-| description | text              |             |            | ○        |                |
-| price       | unsigned smallint |             |            | ○        |                |
-| brand       | varchar(255)      |             |            | ○        | categories(id) |
-| is_sold     | boolean           |             |            | ○        |                |
-| image_path  | varchar(255)      |             |            | ○        |                |
-| condition   | varchar(255)      |             |            |          |                |
-| created_at  | timestamp         |             |            |          |                |
-| deleted_at  | timestamp         |             |            |          |                |
+| カラム名    | 型                | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+| ----------- | ----------------- | ----------- | ---------- | -------- | ----------- |
+| id          | unsigned bigint   | ○           |            | ○        |             |
+| user_id     | unsigned bigint   |             |            | ○        | users(id)   |
+| title       | varchar(255)      |             |            | ○        |             |
+| description | text              |             |            | ○        |             |
+| price       | unsigned smallint |             |            | ○        |             |
+| brand       | varchar(255)      |             |            | ○        |             |
+| is_sold     | boolean           |             |            | ○        |             |
+| image_path  | varchar(255)      |             |            | ○        |             |
+| condition   | varchar(255)      |             |            |          |             |
+| created_at  | timestamp         |             |            |          |             |
+| deleted_at  | timestamp         |             |            |          |             |
 
 ---
 
@@ -209,12 +218,3 @@ STRIPE_WEBHOOK_SECRET=whsec_xxxxx
 ### ER 図
 
 ![ER図](er.svg)
-
-### URL
-
-・ 開発環境：http://localhost/
-・ phpMyadmin：http://localhost:8080/
-
-### ログイン可能なテストユーザー
-email: test@example.com
-password: password
