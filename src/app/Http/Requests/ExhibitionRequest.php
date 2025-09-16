@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use App\Enums\ItemCondition;
 
 class ExhibitionRequest extends FormRequest
 {
@@ -27,9 +29,11 @@ class ExhibitionRequest extends FormRequest
             'title' => ['required', 'string'],
             'description' => ['required', 'string', 'max:255'],
             'image' => ['required', 'file', 'mimes:jpeg,png'],
-            'category_id' => ['required', 'integer'],
-            'condition' => ['required', 'string'],
+            'category_id'   => ['required', 'array'],
+            'category_id.*' => ['integer', 'exists:categories,id'],
+            'condition' => ['required', Rule::in(ItemCondition::values())],
             'price' => ['required', 'numeric', 'min:0'],
+            'brand' => ['nullable', 'string'],
         ];
     }
 

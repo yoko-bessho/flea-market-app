@@ -5,14 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use App\Models\Item;
 use App\Enums\ItemCondition;
 use App\Http\Requests\CommentRequest;
-use App\Models\Like;
-use Facade\Ignition\QueryRecorder\Query;
-use PhpParser\Builder\Function_;
-use Symfony\Component\CssSelector\Node\FunctionNode;
+use App\Http\Requests\ExhibitionRequest;
+
 
 class ItemController extends Controller
 {
@@ -50,7 +47,7 @@ class ItemController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(ExhibitionRequest $request)
     {
         $imagePath = $request->file('image')->store('item_images', 'public');
 
