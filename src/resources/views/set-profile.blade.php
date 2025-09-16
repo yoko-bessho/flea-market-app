@@ -11,7 +11,7 @@
     <div class="register-form__heading">
         <h2>プロフィール設定</h2>
     </div>
-    <form class="form" action="mypage/profile" method="POST" enctype="multipart/form-data">
+    <form class="form" action="{{ route('update') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="form__group">
