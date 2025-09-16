@@ -23,7 +23,7 @@ class PurchaseController extends Controller
 
         if ($user->postal_code == null || $user->address == null )
         {
-            return redirect('/setProfile');
+            return redirect('/mypage/profile');
         }
 
         return view('purchase', compact('item', 'user', 'paymentlabels'));

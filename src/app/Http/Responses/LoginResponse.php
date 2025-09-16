@@ -21,7 +21,7 @@ class LoginResponse implements LoginResponseContract
 
         // プロフィール情報（住所または郵便番号）が未登録の場合はプロフィール設定ページへ
         if (is_null($user->address) || is_null($user->postal_code)) {
-            return redirect()->intended('/setProfile');
+            return redirect()->intended('/mypage/profile');
         }
 
         // 登録済みの場合はトップページへ

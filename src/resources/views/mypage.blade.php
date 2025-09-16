@@ -55,7 +55,7 @@
         </span>
 
         <div class="profile__update">
-            <a class="profile__update-button" href="/setProfile">プロフィールを編集</a>
+            <a class="profile__update-button" href="/mypage/profile">プロフィールを編集</a>
         </div>
     </div>
 
