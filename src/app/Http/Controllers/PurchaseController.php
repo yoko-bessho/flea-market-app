@@ -21,6 +21,14 @@ class PurchaseController extends Controller
         $user = auth()->user();
         $paymentlabels = PaymentMethod::labels();
 
+        if ($item->is_sold) {
+            abort(403, 'この商品は既に売り切れています');
+        }
+
+        if ($item->user_id === $user->id) {
+            abort(403, '自分が出品した商品は購入できません');
+        }
+
         if ($user->postal_code == null || $user->address == null )
         {
             return redirect('/mypage/profile');
@@ -49,6 +57,14 @@ class PurchaseController extends Controller
 
         $item = Item::findOrFail($request->item_id);
         $user = Auth::user();
+
+        if ($item->is_sold) {
+            abort(403, 'この商品は既に売り切れています');
+        }
+
+        if ($item->user_id === $user->id) {
+            abort(403, '自分が出品した商品は購入できません');
+        }
 
         $checkout_session = $this->stripe->create([
             'mode' => 'payment',

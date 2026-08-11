@@ -20,10 +20,10 @@ services:
         image: mysql:8.0.26
         platform: linux/x86_64
         environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: laravel_db
-            MYSQL_USER: laravel_user
-            MYSQL_PASSWORD: laravel_pass
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+            MYSQL_DATABASE: ${MYSQL_DATABASE:-laravel_db}
+            MYSQL_USER: ${MYSQL_USER:-laravel_user}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD:-laravel_pass}
         command:
             mysqld --default-authentication-plugin=mysql_native_password
         volumes:
@@ -34,10 +34,9 @@ services:
         image: phpmyadmin/phpmyadmin
         platform: linux/x86_64
         environment:
-            - PMA_ARBITRARY=1
             - PMA_HOST=mysql
-            - PMA_USER=laravel_user
-            - PMA_PASSWORD=laravel_pass
+            - PMA_USER=${MYSQL_USER:-laravel_user}
+            - PMA_PASSWORD=${MYSQL_PASSWORD:-laravel_pass}
         depends_on:
             - mysql
         ports:
